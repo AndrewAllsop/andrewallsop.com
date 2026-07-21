@@ -76,6 +76,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       });
     </script>
 
+    <!-- Vercel Speed Insights -->
+    <script>
+      import { injectSpeedInsights } from '@vercel/speed-insights';
+      injectSpeedInsights();
+    </script>
+
     <!-- Microsoft Ads UET Tag -->
     <script>
       (function(w,d,t,r,u){

@@ -1,5 +1,8 @@
 ---
 import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Grain from '../components/Grain.astro';
+import GlobalFooter from '../components/GlobalFooter.astro';
 
 const skillCategories = [
   { label: 'Analytics & Performance', items: [
@@ -70,32 +73,26 @@ const skillCategories = [
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
   </head>
-  <body class="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 min-h-screen transition-colors">
+  <body class="cobalt-inner-page min-h-screen">
     <script is:inline>
-      if (localStorage.theme === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-        document.documentElement.classList.remove('dark');
-      } else {
-        document.documentElement.classList.add('dark');
-      }
+      document.documentElement.classList.remove('dark');
     </script>
-    <div class="max-w-xl mx-auto px-6 py-16">
-      <!-- Nav -->
-      <nav class="flex items-center justify-between mb-16 text-sm">
-        <div class="flex items-center gap-6">
-          <a href="/" class="text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white transition-colors">Home</a>
-          <a href="/about" class="text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white transition-colors">About</a>
-          <a href="/blog" class="text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white transition-colors">Notes</a>
+    <Header variant="cobalt" />
+
+    <main class="cobalt-rail inner-page-rail about-page">
+      <header class="inner-masthead index-masthead">
+        <div class="inner-masthead-meta">
+          <span>Profile</span>
+          <span>Manchester, UK</span>
         </div>
-        <a href="mailto:andrew@wunderkindagency.com" class="text-neutral-900 dark:text-white underline underline-offset-4">Contact</a>
-      </nav>
+        <h1>About</h1>
+        <p>Growth, marketing systems and the commercial mechanics underneath them.</p>
+      </header>
 
-      <!-- Header -->
-      <div class="mb-10">
-        <h1 class="text-2xl font-semibold text-neutral-900 dark:text-white mb-6">About</h1>
-
-        <div class="space-y-4 text-neutral-600 dark:text-neutral-400 leading-relaxed">
+      <div class="inner-reading-sheet about-sheet">
+        <section class="about-copy" aria-label="About Andrew">
           <p>
             Most marketing advice sounds great until you try to make it work with an actual budget.
           </p>
@@ -117,110 +114,36 @@ const skillCategories = [
             Outside of work, I'm a dad, currently juggling family life with renovating our house. Most spare time is
             spent fixing things, planning the next job, or trying to keep some balance between work, home, and health.
           </p>
-        </div>
-      </div>
+        </section>
 
-      <!-- Skills -->
-      <div class="mb-10">
-        <h2 class="text-neutral-500 dark:text-neutral-400 text-sm font-medium mb-6">Marketing Technology</h2>
-        <div class="space-y-4">
+        <section class="about-skills" aria-labelledby="skills-heading">
+          <div class="inner-sheet-heading">
+            <h2 id="skills-heading">Marketing technology</h2>
+            <span>{skillCategories.length} areas</span>
+          </div>
+          <div class="about-skill-rows">
           {skillCategories.map((category) => (
-            <div>
-              <h3 class="text-neutral-700 dark:text-neutral-300 text-sm font-medium mb-2">{category.label}</h3>
-              <div class="flex flex-wrap gap-2">
+            <div class="about-skill-row">
+              <h3>{category.label}</h3>
+              <div>
                 {category.items.map((item) => (
                   item.url ? (
-                    <a href={item.url} target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 text-sm rounded hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">
-                      {item.name}
-                    </a>
+                    <a href={item.url} target="_blank" rel="noopener noreferrer">{item.name}</a>
                   ) : (
-                    <span class="px-3 py-1.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 text-sm rounded">
-                      {item.name}
-                    </span>
+                    <span>{item.name}</span>
                   )
                 ))}
               </div>
             </div>
           ))}
-        </div>
+          </div>
+        </section>
+
+        <a href="/" class="inner-back-row">← Back home</a>
       </div>
+    </main>
 
-      <!-- Back -->
-      <a
-        href="/"
-        class="inline-flex items-center gap-2 text-neutral-900 dark:text-white text-sm underline underline-offset-4 hover:text-neutral-600 dark:hover:text-neutral-300 transition-colors"
-      >
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
-        </svg>
-        Back home
-      </a>
-    </div>
-
-    <!-- Footer -->
-    <footer class="border-t border-neutral-200 dark:border-neutral-800 mt-16">
-      <div class="max-w-xl mx-auto px-6 py-16">
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-12 mb-12">
-          <!-- Brand -->
-          <div class="col-span-2 md:col-span-1">
-            <h3 class="text-neutral-900 dark:text-white font-semibold mb-3">andrewallsop</h3>
-            <p class="text-neutral-500 dark:text-neutral-400 text-sm leading-relaxed">
-              Marketing and growth consultant for B2B SaaS. Sharing insights on growth, startups, and go-to-market.
-            </p>
-          </div>
-
-          <!-- Pages -->
-          <div>
-            <h4 class="text-neutral-400 dark:text-neutral-500 text-xs font-medium uppercase tracking-wider mb-4">Pages</h4>
-            <ul class="space-y-3">
-              <li><a href="/blog" class="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm">Notes</a></li>
-              <li><a href="/about" class="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm">About</a></li>
-              <li><a href="/projects" class="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm">Projects</a></li>
-            </ul>
-          </div>
-
-          <!-- Social -->
-          <div>
-            <h4 class="text-neutral-400 dark:text-neutral-500 text-xs font-medium uppercase tracking-wider mb-4">Social</h4>
-            <ul class="space-y-3">
-              <li><a href="https://x.com/AndrewAllsop" target="_blank" rel="noopener noreferrer" class="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm">X</a></li>
-              <li><a href="https://www.linkedin.com/in/andrewallsop/" target="_blank" rel="noopener noreferrer" class="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm">LinkedIn</a></li>
-              <li><a href="https://github.com/AndrewAllsop" target="_blank" rel="noopener noreferrer" class="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm">GitHub</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Bottom bar -->
-        <div class="pt-8 border-t border-neutral-200 dark:border-neutral-800 flex items-center justify-between text-sm text-neutral-500">
-          <div class="flex items-center gap-2">
-            <span>&copy; 2026</span>
-            <span>·</span>
-            <span>Manchester</span>
-            <span>·</span>
-            <a href="/llms.txt" class="hover:text-neutral-700 dark:hover:text-neutral-300">llms.txt</a>
-          </div>
-          <button id="theme-toggle" class="text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors">
-            <svg class="w-4 h-4 hidden dark:inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-            <svg class="w-4 h-4 inline dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </footer>
-
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const themeToggle = document.getElementById('theme-toggle');
-        if (themeToggle) {
-          themeToggle.addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-          });
-        }
-      });
-    </script>
+    <GlobalFooter />
+    <Grain />
   </body>
 </html>

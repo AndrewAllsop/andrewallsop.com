@@ -1,16 +1,19 @@
 ---
 import { getCollection } from 'astro:content';
 import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Grain from '../components/Grain.astro';
+import GlobalFooter from '../components/GlobalFooter.astro';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
 const recentPosts = posts
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 4);
 
-const socialLinks = [
-  { name: 'GitHub', href: 'https://github.com/AndrewAllsop', icon: 'github' },
-  { name: 'X', href: 'https://x.com/AndrewAllsop', icon: 'x' },
-  { name: 'LinkedIn', href: 'https://www.linkedin.com/in/andrewallsop/', icon: 'linkedin' },
+const workItems = [
+  { title: 'Roledge', detail: 'AI sales enablement', href: 'https://roledge.com', action: 'View site' },
+  { title: 'Wunderkind', detail: 'Revenue growth systems', href: 'mailto:andrew@wunderkindagency.com', action: 'Get in touch' },
+  { title: 'Open-source tinkering', detail: 'Tools & experiments', href: 'https://github.com/AndrewAllsop', action: 'View GitHub' },
 ];
 ---
 
@@ -24,7 +27,7 @@ const socialLinks = [
     <meta name="description" content="Revenue Growth Engineer helping B2B SaaS companies connect marketing to financial outcomes." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LNZJEMMDTN"></script>
@@ -39,234 +42,57 @@ const socialLinks = [
       });
     </script>
   </head>
-  <body class="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 min-h-screen transition-colors">
-    <script is:inline>
-      // Check for saved theme or use system preference
-      if (localStorage.theme === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-        document.documentElement.classList.remove('dark');
-      } else {
-        document.documentElement.classList.add('dark');
-      }
-    </script>
-    <div class="max-w-xl mx-auto px-6 py-16">
-      <!-- Nav -->
-      <nav class="flex items-center justify-between mb-16 text-sm">
-        <div class="flex items-center gap-6">
-          <a href="/" class="text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white transition-colors">Home</a>
-          <a href="/about" class="text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white transition-colors">About</a>
-          <a href="/blog" class="text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white transition-colors">Notes</a>
-        </div>
-        <a href="mailto:andrew@wunderkindagency.com" class="text-neutral-900 dark:text-white underline underline-offset-4">Contact</a>
-      </nav>
+  <body class="cobalt-page">
+    <Header variant="cobalt" />
 
-      <!-- Profile -->
-      <div class="mb-8 max-w-[375px]">
-        <div class="w-24 h-24 rounded-lg bg-neutral-200 dark:bg-neutral-700 mb-6 overflow-hidden">
-          <img id="headshot" src="/images/headshot.png" alt="Andrew Allsop" class="w-full h-full object-cover transition-opacity duration-200" />
-        </div>
+    <main class="cobalt-rail">
+      <div class="cobalt-content">
+        <section class="cobalt-intro" aria-label="Introduction">
+          <p>I'm a Demand Generation Expert helping tech companies maximise their growth without jeopardising their financial position.</p>
+          <p>I work across marketing, analytics and commercial strategy—connecting channel performance to the downstream numbers that actually determine whether growth is sustainable.</p>
+          <p>Right now I'm building <a href="https://roledge.com" target="_blank" rel="noopener noreferrer">Roledge</a>, writing about systems and growth, and tinkering with AI until it earns its keep.</p>
+        </section>
 
-        <h1 class="text-2xl font-semibold text-neutral-900 dark:text-white mb-2">Andrew Allsop</h1>
-
-        <div class="flex items-center gap-4 mb-6">
-          <span class="text-neutral-500 dark:text-neutral-400 text-sm flex items-center gap-1">
-            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-            Manchester, UK
-          </span>
-          <div class="flex items-center gap-3">
-            {socialLinks.map((link) => (
-              <a
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors"
-              >
-                {link.icon === 'github' && (
-                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-                )}
-                {link.icon === 'x' && (
-                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-                )}
-                {link.icon === 'linkedin' && (
-                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                )}
+        <section class="cobalt-section" aria-labelledby="work-heading">
+          <div class="cobalt-section-heading">
+            <h2 id="work-heading">Selected work</h2>
+            <span>03</span>
+          </div>
+          <div class="cobalt-rows">
+            {workItems.map((item) => (
+              <a href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}>
+                <span class="cobalt-row-main">
+                  <strong>{item.title}</strong>
+                  <small>{item.detail}</small>
+                </span>
+                <span class="cobalt-row-action">{item.action} ↗</span>
               </a>
             ))}
           </div>
-        </div>
+        </section>
 
-        <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4">
-          Demand Generation Expert. I help tech companies maximise their growth without jeopardising their financial position.
-        </p>
-        <a href="/about" class="text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white hover:opacity-100 mb-8 inline-block opacity-40" style="text-decoration: underline; text-underline-offset: 4px;">More about me</a>
+        <section class="cobalt-section" aria-labelledby="notes-heading">
+          <div class="cobalt-section-heading">
+            <h2 id="notes-heading">Latest notes</h2>
+            <a href="/blog">View all ↗</a>
+          </div>
+          <div class="cobalt-rows cobalt-note-rows">
+            {recentPosts.map((post) => (
+              <a href={`/blog/${post.id}`}>
+                <span class="cobalt-row-main">
+                  <strong>{post.data.title}</strong>
+                  <small>{post.data.pubDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</small>
+                </span>
+                <span class="cobalt-row-action">Read note ↗</span>
+              </a>
+            ))}
+          </div>
+        </section>
 
-        <!-- Newsletter -->
-        <div class="mb-12">
-          <p class="text-neutral-900 dark:text-white text-sm mb-3">Get occasional insights — join the newsletter</p>
-          <form id="newsletter-form" class="flex gap-2">
-            <div class="relative flex-1">
-              <input
-                id="newsletter-email"
-                type="email"
-                name="email_address"
-                required
-                placeholder="you@example.com"
-                class="w-full px-4 py-2.5 bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 rounded-lg text-neutral-900 dark:text-white placeholder-neutral-500 text-sm focus:outline-none focus:border-neutral-400 dark:focus:border-neutral-600"
-              />
-            </div>
-            <button
-              id="newsletter-btn"
-              type="submit"
-              class="px-4 py-2.5 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-sm font-medium rounded-lg hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-colors"
-            >
-              Subscribe
-            </button>
-          </form>
-          <p id="newsletter-success" class="text-green-600 dark:text-green-400 text-sm mt-2 hidden">You're in! Check your email to confirm.</p>
-          <p id="newsletter-error" class="text-red-600 dark:text-red-400 text-sm mt-2 hidden">Something went wrong. Please try again.</p>
-        </div>
       </div>
+    </main>
 
-      <!-- Notes Section -->
-      <section>
-        <div class="flex items-center justify-between mb-6">
-          <h2 class="text-neutral-500 dark:text-neutral-400 text-sm font-medium">Notes</h2>
-          <a href="/blog" class="text-neutral-900 dark:text-white text-sm underline underline-offset-4 hover:text-neutral-600 dark:hover:text-neutral-300">View all</a>
-        </div>
-
-        <div class="space-y-0">
-          {recentPosts.map((post) => (
-            <a
-              href={`/blog/${post.id}`}
-              class="flex items-center justify-between py-4 border-t border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 -mx-3 px-3 transition-colors group"
-            >
-              <span class="text-neutral-900 dark:text-white">{post.data.title}</span>
-              <svg class="w-4 h-4 text-neutral-400 group-hover:text-neutral-600 dark:group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7V17" />
-              </svg>
-            </a>
-          ))}
-        </div>
-      </section>
-    </div>
-
-    <!-- Footer -->
-    <footer class="border-t border-neutral-200 dark:border-neutral-800 mt-16">
-      <div class="max-w-xl mx-auto px-6 py-16">
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-12 mb-12">
-          <!-- Brand -->
-          <div class="col-span-2 md:col-span-1">
-            <h3 class="text-neutral-900 dark:text-white font-semibold mb-3">andrewallsop</h3>
-            <p class="text-neutral-500 dark:text-neutral-400 text-sm leading-relaxed">
-              Marketing and growth consultant for B2B SaaS. Sharing insights on growth, startups, and go-to-market.
-            </p>
-          </div>
-
-          <!-- Pages -->
-          <div>
-            <h4 class="text-neutral-400 dark:text-neutral-500 text-xs font-medium uppercase tracking-wider mb-4">Pages</h4>
-            <ul class="space-y-3">
-              <li><a href="/blog" class="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm">Notes</a></li>
-              <li><a href="/about" class="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm">About</a></li>
-              <li><a href="/projects" class="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm">Projects</a></li>
-            </ul>
-          </div>
-
-          <!-- Social -->
-          <div>
-            <h4 class="text-neutral-400 dark:text-neutral-500 text-xs font-medium uppercase tracking-wider mb-4">Social</h4>
-            <ul class="space-y-3">
-              <li><a href="https://x.com/AndrewAllsop" target="_blank" rel="noopener noreferrer" class="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm">X</a></li>
-              <li><a href="https://www.linkedin.com/in/andrewallsop/" target="_blank" rel="noopener noreferrer" class="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm">LinkedIn</a></li>
-              <li><a href="https://github.com/AndrewAllsop" target="_blank" rel="noopener noreferrer" class="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm">GitHub</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Bottom bar -->
-        <div class="pt-8 border-t border-neutral-200 dark:border-neutral-800 flex items-center justify-between text-sm text-neutral-500">
-          <div class="flex items-center gap-2">
-            <span>&copy; 2026</span>
-            <span>·</span>
-            <span>Manchester</span>
-            <span>·</span>
-            <a href="/llms.txt" class="hover:text-neutral-700 dark:hover:text-neutral-300">llms.txt</a>
-          </div>
-          <button id="theme-toggle" class="text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors">
-            <svg class="w-4 h-4 hidden dark:inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-            <svg class="w-4 h-4 inline dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </footer>
-
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const themeToggle = document.getElementById('theme-toggle');
-        if (themeToggle) {
-          themeToggle.addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-          });
-        }
-
-        // Sparkle headshot on subscribe hover
-        const subscribeBtn = document.getElementById('newsletter-btn');
-        const headshot = document.getElementById('headshot');
-        if (subscribeBtn && headshot) {
-          const normalSrc = '/images/headshot.png';
-          const sparkleSrc = '/images/headshot-sparkle.jpg';
-          // Preload sparkle image
-          const preload = new Image();
-          preload.src = sparkleSrc;
-          
-          subscribeBtn.addEventListener('mouseenter', () => {
-            headshot.src = sparkleSrc;
-          });
-          subscribeBtn.addEventListener('mouseleave', () => {
-            headshot.src = normalSrc;
-          });
-        }
-
-        const form = document.getElementById('newsletter-form');
-        if (form) {
-          form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('newsletter-email').value;
-            const btn = document.getElementById('newsletter-btn');
-            const success = document.getElementById('newsletter-success');
-            const error = document.getElementById('newsletter-error');
-
-            success.classList.add('hidden');
-            error.classList.add('hidden');
-            btn.disabled = true;
-            btn.textContent = 'Subscribing...';
-
-            try {
-              const res = await fetch('https://api.convertkit.com/v3/forms/9061075/subscribe', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ api_key: '8YZxYV-nUZS0oKdnQl3x3w', email }),
-              });
-
-              if (res.ok) {
-                success.classList.remove('hidden');
-                form.reset();
-              } else {
-                error.classList.remove('hidden');
-              }
-            } catch {
-              error.classList.remove('hidden');
-            } finally {
-              btn.disabled = false;
-              btn.textContent = 'Subscribe';
-            }
-          });
-        }
-      });
-    </script>
+    <GlobalFooter />
+    <Grain />
   </body>
 </html>

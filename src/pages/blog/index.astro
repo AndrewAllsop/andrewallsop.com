@@ -1,9 +1,17 @@
 ---
 import '../../styles/global.css';
 import { getCollection } from 'astro:content';
+import Header from '../../components/Header.astro';
+import Grain from '../../components/Grain.astro';
+import GlobalFooter from '../../components/GlobalFooter.astro';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
-const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const sortedPosts = posts
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .map((post) => ({
+    ...post,
+    readingTime: Math.max(1, Math.ceil(post.body.trim().split(/\s+/).length / 220)),
+  }));
 ---
 
 <!doctype html>
@@ -13,7 +21,7 @@ const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Notes | Andrew Allsop</title>
-    <meta name="description" content="Notes on development, design, and technology." />
+    <meta name="description" content="Notes on growth, marketing systems, AI, and useful tinkering." />
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LNZJEMMDTN"></script>
     <script is:inline>
@@ -29,118 +37,58 @@ const sortedPosts = posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDa
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
   </head>
-  <body class="bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 min-h-screen transition-colors">
+  <body class="cobalt-inner-page note-page min-h-screen">
     <script is:inline>
-      if (localStorage.theme === 'light' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: light)').matches)) {
-        document.documentElement.classList.remove('dark');
-      } else {
-        document.documentElement.classList.add('dark');
-      }
+      document.documentElement.classList.remove('dark');
     </script>
-    <div class="max-w-xl mx-auto px-6 py-16">
-      <!-- Nav -->
-      <nav class="flex items-center justify-between mb-16 text-sm">
-        <div class="flex items-center gap-6">
-          <a href="/" class="text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white transition-colors">Home</a>
-          <a href="/about" class="text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white transition-colors">About</a>
-          <a href="/blog" class="text-neutral-600 hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-white transition-colors">Notes</a>
+    <Header variant="cobalt" />
+
+    <main class="cobalt-rail inner-page-rail note-index">
+      <header class="inner-masthead index-masthead">
+        <div class="inner-masthead-meta">
+          <span>Writing</span>
+          <span>{String(sortedPosts.length).padStart(2, '0')} notes</span>
         </div>
-        <a href="mailto:andrew@wunderkindagency.com" class="text-neutral-900 dark:text-white underline underline-offset-4">Contact</a>
-      </nav>
+        <h1>Notes</h1>
+        <p>Thoughts on growth, marketing systems, AI, and useful tinkering.</p>
+      </header>
 
-      <!-- Header -->
-      <div class="mb-10">
-        <h1 class="text-2xl font-semibold text-neutral-900 dark:text-white mb-3">Notes</h1>
-        <p class="text-neutral-500 dark:text-neutral-400">Thoughts on development, design, and technology.</p>
-      </div>
-
-      <!-- Posts -->
-      <div class="space-y-0">
-        {sortedPosts.map((post) => (
-          <a
-            href={`/blog/${post.id}`}
-            class="flex items-center justify-between py-4 border-t border-neutral-200 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-800/50 -mx-3 px-3 transition-colors group"
-          >
-            <div>
-              <span class="text-neutral-900 dark:text-white block mb-1">{post.data.title}</span>
-              <span class="text-sm text-neutral-500 dark:text-neutral-400">
-                {post.data.pubDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+      <section class="notes-directory" aria-labelledby="all-notes-heading">
+        <div class="cobalt-section-heading notes-directory-heading">
+          <h2 id="all-notes-heading">All notes</h2>
+          <span>Newest first · {String(sortedPosts.length).padStart(2, '0')}</span>
+        </div>
+        <div class="notes-directory-rows">
+          {sortedPosts.map((post, index) => (
+            <a href={`/blog/${post.id}`} class:list={[post.data.image && 'has-image']}>
+              <span class="notes-row-number">{String(index + 1).padStart(2, '0')}</span>
+              <span class="notes-row-copy">
+                <strong>{post.data.title}</strong>
+                <span class="notes-row-description">{post.data.description}</span>
+                <span class="notes-row-meta">
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {post.data.pubDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
+                  </time>
+                  <span>{post.readingTime} min read</span>
+                  {post.data.tags[0] && <span>{post.data.tags[0].replaceAll('-', ' ')}</span>}
+                </span>
               </span>
-            </div>
-            <svg class="w-4 h-4 text-neutral-400 dark:text-neutral-500 group-hover:text-neutral-600 dark:group-hover:text-white transition-colors flex-shrink-0 ml-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 17L17 7M17 7H7M17 7V17" />
-            </svg>
-          </a>
-        ))}
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="border-t border-neutral-200 dark:border-neutral-800 mt-16">
-      <div class="max-w-xl mx-auto px-6 py-16">
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-12 mb-12">
-          <!-- Brand -->
-          <div class="col-span-2 md:col-span-1">
-            <h3 class="text-neutral-900 dark:text-white font-semibold mb-3">andrewallsop</h3>
-            <p class="text-neutral-500 dark:text-neutral-400 text-sm leading-relaxed">
-              Marketing and growth consultant for B2B SaaS. Sharing insights on growth, startups, and go-to-market.
-            </p>
-          </div>
-
-          <!-- Pages -->
-          <div>
-            <h4 class="text-neutral-400 dark:text-neutral-500 text-xs font-medium uppercase tracking-wider mb-4">Pages</h4>
-            <ul class="space-y-3">
-              <li><a href="/blog" class="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm">Notes</a></li>
-              <li><a href="/about" class="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm">About</a></li>
-              <li><a href="/projects" class="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm">Projects</a></li>
-            </ul>
-          </div>
-
-          <!-- Social -->
-          <div>
-            <h4 class="text-neutral-400 dark:text-neutral-500 text-xs font-medium uppercase tracking-wider mb-4">Social</h4>
-            <ul class="space-y-3">
-              <li><a href="https://x.com/AndrewAllsop" target="_blank" rel="noopener noreferrer" class="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm">X</a></li>
-              <li><a href="https://www.linkedin.com/in/andrewallsop/" target="_blank" rel="noopener noreferrer" class="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm">LinkedIn</a></li>
-              <li><a href="https://github.com/AndrewAllsop" target="_blank" rel="noopener noreferrer" class="text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors text-sm">GitHub</a></li>
-            </ul>
-          </div>
+              {post.data.image && (
+                <span class="notes-row-image" aria-hidden="true">
+                  <img src={post.data.image} alt="" loading="lazy" />
+                </span>
+              )}
+              <span class="notes-row-action">Read note <b>↗</b></span>
+            </a>
+          ))}
         </div>
+      </section>
+    </main>
 
-        <!-- Bottom bar -->
-        <div class="pt-8 border-t border-neutral-200 dark:border-neutral-800 flex items-center justify-between text-sm text-neutral-500">
-          <div class="flex items-center gap-2">
-            <span>&copy; 2026</span>
-            <span>·</span>
-            <span>Manchester</span>
-            <span>·</span>
-            <a href="/llms.txt" class="hover:text-neutral-700 dark:hover:text-neutral-300">llms.txt</a>
-          </div>
-          <button id="theme-toggle" class="text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors">
-            <svg class="w-4 h-4 hidden dark:inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-            <svg class="w-4 h-4 inline dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-            </svg>
-          </button>
-        </div>
-      </div>
-    </footer>
+    <GlobalFooter />
+    <Grain />
 
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const themeToggle = document.getElementById('theme-toggle');
-        if (themeToggle) {
-          themeToggle.addEventListener('click', () => {
-            document.documentElement.classList.toggle('dark');
-            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-          });
-        }
-      });
-    </script>
   </body>
 </html>

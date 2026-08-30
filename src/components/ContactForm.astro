@@ -1,10 +1,11 @@
 ---
 const CONTACT_EMAIL = 'andrew@wunderkindagency.com';
 
-// Static build: the form posts client-side. Set PUBLIC_CONTACT_ENDPOINT to a form
-// service URL (Formspree, Web3Forms, a Vercel function) to receive submissions.
-// Without it the form falls back to composing a pre-filled email.
-const endpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT ?? '';
+// Static build: the form posts client-side to the Cloudflare Worker in
+// workers/contact-form/, which relays the message over Resend. Override with
+// PUBLIC_CONTACT_ENDPOINT; set it empty to fall back to a mailto: compose.
+const DEFAULT_ENDPOINT = 'https://contact-form.andrew-d1a.workers.dev';
+const endpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT ?? DEFAULT_ENDPOINT;
 
 const topics = [
   'Growth / demand gen work',

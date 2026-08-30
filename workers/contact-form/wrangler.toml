@@ -1,0 +1,30 @@
+name = "contact-form"
+main = "src/index.ts"
+compatibility_date = "2025-09-01"
+
+# Which Cloudflare account this deploys to is decided by `wrangler login`.
+# account_id = "d1acb5851f32b8a5ea4d160f8dc567a1"
+
+[vars]
+# Sending happens through Resend, so no MX changes are needed on any domain.
+# Resend's shared sender works with no DNS setup, but may only deliver to the
+# Resend account owner's address - fine here, since TO_ADDRESS is fixed.
+# To send from your own domain, finish verifying updates.wunderkindagency.com
+# in Resend and change this to contact@updates.wunderkindagency.com.
+FROM_ADDRESS = "onboarding@resend.dev"
+FROM_NAME = "andrewallsop.com contact form"
+TO_ADDRESS = "andrew@wunderkindagency.com"
+ALLOWED_ORIGINS = "https://andrewallsop.com,https://www.andrewallsop.com,http://localhost:4321"
+
+# RESEND_API_KEY is a secret, set separately:
+#   npx wrangler secret put RESEND_API_KEY
+
+# Per-IP rate limit: 5 submissions per minute, via a Durable Object.
+# The native [[ratelimits]] binding was tried first and did not enforce.
+[[durable_objects.bindings]]
+name = "RATE_LIMITER"
+class_name = "RateLimiter"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["RateLimiter"]

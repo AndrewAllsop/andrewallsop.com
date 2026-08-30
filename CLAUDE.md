@@ -30,6 +30,7 @@ No test runner or linter is configured.
 
 - **Deployment:** Vercel (synced via GitHub)
 - **Newsletter:** ConvertKit v3 API — form ID 9061075, client-side submission in Hero.astro
+- **Contact form:** Cloudflare Worker in `workers/contact-form/` relays submissions via Resend to andrew@wunderkindagency.com. ContactForm.astro posts to the Worker by default; `PUBLIC_CONTACT_ENDPOINT` overrides it, and setting it empty falls back to a `mailto:` compose
 - **Analytics:** Google Analytics 4 (GA-LNZJEMMDTN) in BaseLayout
 - **AI crawlers:** `public/llms.txt` describes site purpose
 

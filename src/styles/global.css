@@ -303,10 +303,15 @@ body.cobalt-page,
 }
 
 .cobalt-marquee-track span::before {
-  width: 0.42rem;
-  height: 0.42rem;
-  border: 1px solid var(--cobalt-border);
+  flex: 0 0 auto;
+  width: 0.32rem;
+  height: 0.32rem;
+  border-radius: 1px;
+  background: var(--cobalt-text);
+  box-shadow: 0 0 0 2px rgb(255 255 255 / 0.14);
   content: "";
+  opacity: 0.9;
+  transform: rotate(45deg);
 }
 
 .cobalt-marquee-track b {
@@ -2027,4 +2032,201 @@ a.hero-tile:hover {
 /* Selection */
 ::selection {
   @apply bg-blue-200 dark:bg-blue-800 text-neutral-900 dark:text-white;
+}
+
+/* Contact page keeps the cobalt surface: transparent controls on the rule grid,
+   inverted button so the primary action still reads against the blue. */
+.contact-form-section { margin-top: 3.5rem; }
+
+.contact-form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.contact-field-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1.25rem;
+}
+
+.contact-field {
+  display: grid;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.contact-field label {
+  color: var(--cobalt-text);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.contact-field input,
+.contact-field select,
+.contact-field textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 0.7rem 0.75rem;
+  border: 1px solid var(--cobalt-border);
+  border-radius: 0.25rem;
+  background: rgb(255 255 255 / 0.04);
+  color: var(--cobalt-text);
+  font-family: inherit;
+  font-size: 0.875rem;
+  letter-spacing: -0.01em;
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+
+.contact-field textarea {
+  min-height: 8rem;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.contact-field select {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 2rem;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 1rem) 55%, calc(100% - 0.7rem) 55%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+/* Native dropdown popups paint on the OS surface, not the cobalt one. */
+.contact-field select option {
+  background: #fff;
+  color: #111;
+}
+
+.contact-field input::placeholder,
+.contact-field textarea::placeholder {
+  color: color-mix(in srgb, var(--cobalt-text) 55%, transparent);
+}
+
+.contact-field input:focus,
+.contact-field select:focus,
+.contact-field textarea:focus {
+  border-color: color-mix(in srgb, var(--cobalt-text) 60%, transparent);
+  background: rgb(255 255 255 / 0.1);
+}
+
+.contact-field input[aria-invalid="true"],
+.contact-field textarea[aria-invalid="true"] { border-color: #ffb4ab; }
+
+.contact-field-error {
+  margin: 0;
+  color: #ffb4ab;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+/* Hidden from people, reachable by bots. */
+.contact-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.contact-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.contact-actions button {
+  cursor: pointer;
+  padding: 0.7rem 1.1rem;
+  border: 1px solid var(--cobalt-text);
+  border-radius: 0.25rem;
+  background: var(--cobalt-text);
+  color: var(--cobalt-bg);
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.contact-actions button:hover { opacity: 0.85; transform: translateY(-1px); }
+.contact-actions button:disabled { cursor: wait; opacity: 0.6; transform: none; }
+
+.contact-actions p {
+  margin: 0;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.contact-actions a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--cobalt-text) 55%, transparent);
+  text-underline-offset: 0.18em;
+}
+
+.contact-status {
+  margin: 0;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid var(--cobalt-border);
+  border-radius: 0.25rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.contact-status[data-state="success"] {
+  border-color: color-mix(in srgb, var(--cobalt-text) 45%, transparent);
+  background: rgb(255 255 255 / 0.12);
+  color: var(--cobalt-text);
+}
+
+.contact-status[data-state="error"] {
+  border-color: rgb(255 180 171 / 0.5);
+  background: rgb(255 180 171 / 0.12);
+  color: #ffb4ab;
+}
+
+.contact-status a { color: inherit; text-decoration: underline; }
+
+.contact-channels { margin-top: 3.5rem; }
+
+.contact-channels .cobalt-rows > a span {
+  font-size: 0.8125rem;
+  opacity: 0.7;
+}
+
+.contact-back-row {
+  display: block;
+  margin-top: 3.5rem;
+  padding: 1rem;
+  border-top: 1px solid var(--cobalt-border);
+  color: var(--cobalt-text);
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: background-color 150ms ease;
+}
+
+.contact-back-row:hover { background: rgb(255 255 255 / 0.08); }
+
+@media (max-width: 639px) {
+  .contact-field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .contact-actions button { width: 100%; }
 }

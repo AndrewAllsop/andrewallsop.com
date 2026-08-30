@@ -1,0 +1,93 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Grain from '../components/Grain.astro';
+import GlobalFooter from '../components/GlobalFooter.astro';
+import ContactForm from '../components/ContactForm.astro';
+import GoogleTagManagerHead from '../components/GoogleTagManagerHead.astro';
+import GoogleTagManagerBody from '../components/GoogleTagManagerBody.astro';
+
+const channels = [
+  { label: 'Email', value: 'andrew@wunderkindagency.com', href: 'mailto:andrew@wunderkindagency.com' },
+  { label: 'LinkedIn', value: '/in/andrewallsop', href: 'https://www.linkedin.com/in/andrewallsop/' },
+  { label: 'X', value: '@AndrewAllsop', href: 'https://x.com/AndrewAllsop' },
+  { label: 'GitHub', value: 'AndrewAllsop', href: 'https://github.com/AndrewAllsop' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <GoogleTagManagerHead />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Contact | Andrew Allsop</title>
+    <meta name="description" content="Get in touch with Andrew Allsop about growth, demand generation and marketing systems work." />
+    <link rel="canonical" href="https://andrewallsop.com/contact" />
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LNZJEMMDTN"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-LNZJEMMDTN', {
+        page_title: document.title,
+        page_path: window.location.pathname,
+        page_location: window.location.href
+      });
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
+  </head>
+  <body class="cobalt-page">
+    <GoogleTagManagerBody />
+    <Header variant="cobalt" />
+
+    <main class="cobalt-rail contact-page">
+      <header class="inner-masthead">
+        <div class="inner-masthead-meta">
+          <span>Contact</span>
+          <span>Manchester, UK</span>
+        </div>
+        <h1>Get in touch</h1>
+        <p>
+          Working on growth and something isn't adding up? Tell me what you're trying to move and I'll tell you
+          whether I can help.
+        </p>
+      </header>
+
+      <div class="cobalt-content">
+        <ContactForm />
+
+        <section class="contact-channels" aria-labelledby="contact-channels-heading">
+          <div class="cobalt-section-heading">
+            <h2 id="contact-channels-heading">Elsewhere</h2>
+            <span>{channels.length} places</span>
+          </div>
+          <div class="cobalt-rows">
+            {channels.map((channel) => (
+              <a
+                href={channel.href}
+                target={channel.href.startsWith('http') ? '_blank' : undefined}
+                rel={channel.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+              >
+                <span class="cobalt-row-main">
+                  <strong>{channel.label}</strong>
+                </span>
+                <span>{channel.value} ↗</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <a href="/" class="contact-back-row">← Back home</a>
+    </main>
+
+    <GlobalFooter />
+    <Grain />
+  </body>
+</html>

@@ -47,7 +47,7 @@ const isCurrent = (href: string) => currentPath.startsWith(href);
             </summary>
             <div>
               {navLinks.map((link) => <a href={link.href}>{link.label}<span>↗</span></a>)}
-              <a href="mailto:andrew@wunderkindagency.com">Contact<span>↗</span></a>
+              <a href="/contact">Contact<span>↗</span></a>
               <div class="cobalt-theme-control">
                 <label for="site-theme-selector">Theme</label>
                 <select id="site-theme-selector" aria-label="Site theme">
@@ -86,7 +86,7 @@ const isCurrent = (href: string) => currentPath.startsWith(href);
           </a>
         ))}
         <a
-          href="mailto:andrew@wunderkindagency.com"
+          href="/contact"
           class="site-contact ml-1 rounded-lg bg-[#202020] px-3.5 py-2 shadow-[0_1px_1px_rgba(0,0,0,.45),inset_0_1px_rgba(255,255,255,.18)] transition-transform hover:-translate-y-px dark:bg-white"
         >
           Contact

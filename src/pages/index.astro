@@ -4,6 +4,8 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Grain from '../components/Grain.astro';
 import GlobalFooter from '../components/GlobalFooter.astro';
+import GoogleTagManagerHead from '../components/GoogleTagManagerHead.astro';
+import GoogleTagManagerBody from '../components/GoogleTagManagerBody.astro';
 
 const posts = await getCollection('blog', ({ data }) => !data.draft);
 const recentPosts = posts
@@ -11,20 +13,21 @@ const recentPosts = posts
   .slice(0, 4);
 
 const workItems = [
-  { title: 'Roledge', detail: 'AI sales enablement', href: 'https://roledge.com', action: 'View site' },
-  { title: 'Wunderkind', detail: 'Revenue growth systems', href: 'mailto:andrew@wunderkindagency.com', action: 'Get in touch' },
-  { title: 'Open-source tinkering', detail: 'Tools & experiments', href: 'https://github.com/AndrewAllsop', action: 'View GitHub' },
+  { title: 'Adstronauts', detail: 'LinkedIn Ads Automation Platform', href: 'https://linkedin-ads-automator.vercel.app/', action: 'View site' },
+  { title: 'WORK FUNCTION', detail: 'Managed AI Infrastructure Services', href: 'https://www.aa.marketing/', action: 'View site' },
+  { title: 'JupiterBrain', detail: 'AI Infrastructure for ToJupiter', href: 'https://www.tojupiter.com', action: 'View site' },
 ];
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
+    <GoogleTagManagerHead />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Andrew Allsop</title>
-    <meta name="description" content="Revenue Growth Engineer helping B2B SaaS companies connect marketing to financial outcomes." />
+    <meta name="description" content="Demand Generation Marketer helping B2B SaaS companies connect marketing to financial outcomes." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
@@ -43,12 +46,13 @@ const workItems = [
     </script>
   </head>
   <body class="cobalt-page">
+    <GoogleTagManagerBody />
     <Header variant="cobalt" />
 
     <main class="cobalt-rail">
       <div class="cobalt-content">
         <section class="cobalt-intro" aria-label="Introduction">
-          <p>I’m less interested in marketing as a collection of campaigns and more interested in how the whole thing works together. Ads matter, but so does understanding and impacting the economics, the sales process and what happens after someone becomes a lead or a customer. Good marketing decisions usually sit across all of it. That’s how you drive revenue and capture market share.</p>
+          <p>I’m a B2B Demand Generation Marketer that is less interested in marketing as a collection of campaigns and more interested in how the whole thing works together. Ads matter, but so does understanding and impacting the economics, the sales process and what happens after someone becomes a lead or a customer. Good marketing decisions usually sit across all of it. That’s how you drive revenue and capture market share.</p>
           <p>More recently I’ve also been spending a lot of time building with AI. Some of that is looking at how autonomous companies might work, some is building systems inside existing organisations, and some is just putting things out into the world to see what happens. I’m deliberately doing a lot of the latter because I want to get better by building, not by talking about it.</p>
           <p>You can see some of those projects below.</p>
         </section>

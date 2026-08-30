@@ -35,6 +35,7 @@ I share insights on:
 - **/blog** - Notes and articles
 - **/about** - Detailed about page
 - **/projects** - Project portfolio
+- **/contact** - Contact form and direct channels
 
 ## AI Usage
 

@@ -3,6 +3,8 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Grain from '../components/Grain.astro';
 import GlobalFooter from '../components/GlobalFooter.astro';
+import GoogleTagManagerHead from '../components/GoogleTagManagerHead.astro';
+import GoogleTagManagerBody from '../components/GoogleTagManagerBody.astro';
 
 const projects = [
   {
@@ -31,6 +33,7 @@ const projects = [
 <!doctype html>
 <html lang="en">
   <head>
+    <GoogleTagManagerHead />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -54,6 +57,7 @@ const projects = [
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet" />
   </head>
   <body class="cobalt-inner-page min-h-screen">
+    <GoogleTagManagerBody />
     <script is:inline>
       document.documentElement.classList.remove('dark');
     </script>

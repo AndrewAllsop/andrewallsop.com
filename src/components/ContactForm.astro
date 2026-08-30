@@ -16,6 +16,7 @@ const topics = [
 ---
 
 <section class="contact-form-section" aria-labelledby="contact-form-heading">
+  <div id="contact-form-panel">
   <div class="cobalt-section-heading">
     <h2 id="contact-form-heading">Send a message</h2>
   </div>
@@ -95,6 +96,20 @@ const topics = [
       </p>
     </noscript>
   </form>
+  </div>
+
+  <!-- Replaces the form once a message actually sends. -->
+  <div
+    id="contact-success"
+    class="contact-success"
+    role="status"
+    aria-live="polite"
+    tabindex="-1"
+    hidden
+  >
+    <p class="contact-success-title">Thanks — your message is on its way.</p>
+    <p class="contact-success-detail">I'll reply to the address you gave.</p>
+  </div>
 </section>
 
 <script>
@@ -132,6 +147,18 @@ const topics = [
     } else {
       element.dataset.state = state;
     }
+  }
+
+  /** Hides the form entirely and leaves only the confirmation on screen. */
+  function showConfirmation() {
+    const panel = document.getElementById('contact-form-panel');
+    const success = document.getElementById('contact-success');
+    if (!(panel instanceof HTMLElement) || !(success instanceof HTMLElement)) return;
+
+    panel.hidden = true;
+    success.hidden = false;
+    // Move focus so keyboard and screen reader users land on the message.
+    success.focus();
   }
 
   function buildMailto(email: string, values: Record<string, string>) {
@@ -173,7 +200,7 @@ const topics = [
       // Honeypot filled means a bot: pretend it worked, send nothing.
       if (values.website) {
         form.reset();
-        setStatus(status, 'success', 'Thanks — your message is on its way.');
+        showConfirmation();
         return;
       }
 
@@ -217,7 +244,7 @@ const topics = [
 
         if (response.ok) {
           form.reset();
-          setStatus(status, 'success', 'Thanks — your message is on its way.');
+          showConfirmation();
         } else {
           setStatus(status, 'error', `Something went wrong. Please email ${email} instead.`);
         }

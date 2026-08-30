@@ -2198,6 +2198,34 @@ a.hero-tile:hover {
 
 .contact-status a { color: inherit; text-decoration: underline; }
 
+/* Shown in place of the form once a message actually sends. */
+.contact-success {
+  padding: 1.5rem;
+  border: 1px solid color-mix(in srgb, var(--cobalt-text) 45%, transparent);
+  border-radius: 0.25rem;
+  background: rgb(255 255 255 / 0.1);
+  color: var(--cobalt-text);
+}
+
+.contact-success:focus-visible {
+  outline: 1px solid color-mix(in srgb, var(--cobalt-text) 70%, transparent);
+  outline-offset: 3px;
+}
+
+.contact-success-title {
+  margin: 0 0 0.35rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.contact-success-detail {
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  opacity: 0.7;
+}
+
 .contact-channels { margin-top: 3.5rem; }
 
 .contact-channels .cobalt-rows > a span {

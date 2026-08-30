@@ -544,6 +544,26 @@ body.cobalt-page,
   height: 100%;
   pointer-events: none;
   opacity: 0.2;
+  /* Grain sits either side of the 640px rail only, keeping body content clean.
+     Below 640px the rail fills the viewport, so no grain shows at all. */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    #000 0,
+    #000 calc(50% - 320px),
+    transparent calc(50% - 320px),
+    transparent calc(50% + 320px),
+    #000 calc(50% + 320px),
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    #000 0,
+    #000 calc(50% - 320px),
+    transparent calc(50% - 320px),
+    transparent calc(50% + 320px),
+    #000 calc(50% + 320px),
+    #000 100%
+  );
 }
 
 @media (max-width: 639px) {
@@ -740,39 +760,48 @@ html[data-site-theme="mono"] .dark body.cobalt-inner-page {
   grid-template-columns: minmax(0, 1fr) auto;
 }
 
+/* Both controls carried a transparent fill and a 0.2-alpha border, which all
+   but vanished on the dark surfaces. Filled input + solid button instead. */
 .global-newsletter input,
 .global-newsletter button {
   min-width: 0;
-  border: 1px solid var(--cobalt-border, rgb(255 255 255 / 0.2));
-  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--cobalt-text, #fff) 42%, transparent);
   color: var(--cobalt-text, #fff);
   font-family: inherit;
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
 }
 
 .global-newsletter input {
   padding: 0.7rem 0.75rem;
   border-right: 0;
   border-radius: 0.25rem 0 0 0.25rem;
+  background: rgb(255 255 255 / 0.08);
   outline: none;
 }
 
 .global-newsletter input::placeholder {
-  color: color-mix(in srgb, var(--cobalt-text, #fff) 55%, transparent);
+  color: color-mix(in srgb, var(--cobalt-text, #fff) 62%, transparent);
 }
 
 .global-newsletter input:focus {
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.6);
+  border-color: var(--cobalt-text, #fff);
+  background: rgb(255 255 255 / 0.15);
 }
 
+/* Inverted so the CTA reads as a button, matching the contact form. */
 .global-newsletter button {
   cursor: pointer;
-  padding: 0.7rem 0.8rem;
+  padding: 0.7rem 1rem;
+  border-color: var(--cobalt-text, #fff);
   border-radius: 0 0.25rem 0.25rem 0;
+  background: var(--cobalt-text, #fff);
+  color: var(--cobalt-bg, #0038ff);
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .global-newsletter button:hover {
-  background: rgb(255 255 255 / 0.12);
+  opacity: 0.85;
 }
 
 .global-newsletter button:disabled {
@@ -782,7 +811,20 @@ html[data-site-theme="mono"] .dark body.cobalt-inner-page {
 
 .global-newsletter form > p {
   margin: 0.5rem 0 0;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
+}
+
+.newsletter-success { color: var(--cobalt-text, #fff); }
+.newsletter-error { color: #ffb4ab; }
+
+/* Hidden from people, reachable by bots. */
+.newsletter-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }
 
 .global-footer-spacer {

@@ -5,7 +5,7 @@ This is an llms.txt file, a new standard for helping AI assistants understand yo
 ## Site Information
 
 - **Name:** Andrew Allsop
-- **Role:** Revenue Growth Engineer
+- **Role:** Demand Generation Marketer
 - **Specialization:** Helping B2B SaaS companies connect marketing to financial outcomes
 - **Location:** Manchester, UK
 - **Website:** andrewallsop.com

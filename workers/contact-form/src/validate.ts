@@ -13,6 +13,19 @@ export type ValidationResult =
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+export const MAX_EMAIL_LENGTH = 320;
+
+/** Shared so the contact and newsletter routes agree on what an address is. */
+export function isValidEmail(value: string): boolean {
+  return value.length <= MAX_EMAIL_LENGTH && EMAIL_PATTERN.test(value);
+}
+
+/** Reads a trimmed string field from an unknown JSON object. */
+export function readField(source: Record<string, unknown>, key: string): string {
+  const value = source[key];
+  return typeof value === 'string' ? value.trim() : '';
+}
+
 const MAX_LENGTH = {
   name: 200,
   email: 320,
@@ -30,11 +43,6 @@ export function headerSafe(value: string): string {
   return value.replace(/[\r\n]+/g, ' ').trim();
 }
 
-function readString(source: Record<string, unknown>, key: string): string {
-  const value = source[key];
-  return typeof value === 'string' ? value.trim() : '';
-}
-
 export function validate(payload: unknown): ValidationResult {
   if (typeof payload !== 'object' || payload === null) {
     return { ok: false, error: 'Expected a JSON object.' };
@@ -43,14 +51,14 @@ export function validate(payload: unknown): ValidationResult {
   const source = payload as Record<string, unknown>;
 
   // Honeypot: a real person never sees this field, so any value means a bot.
-  if (readString(source, 'website').length > 0) {
+  if (readField(source, 'website').length > 0) {
     return { ok: false, error: 'Rejected.' };
   }
 
-  const name = readString(source, 'name');
-  const email = readString(source, 'email');
-  const topic = readString(source, 'topic');
-  const message = readString(source, 'message');
+  const name = readField(source, 'name');
+  const email = readField(source, 'email');
+  const topic = readField(source, 'topic');
+  const message = readField(source, 'message');
 
   if (name.length === 0) return { ok: false, error: 'A name is required.' };
   if (email.length === 0) return { ok: false, error: 'An email address is required.' };

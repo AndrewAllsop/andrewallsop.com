@@ -1,11 +1,11 @@
 ---
+import { FORMS_ENDPOINT } from '../lib/endpoints';
+
 const CONTACT_EMAIL = 'andrew@wunderkindagency.com';
 
-// Static build: the form posts client-side to the Cloudflare Worker in
-// workers/contact-form/, which relays the message over Resend. Override with
-// PUBLIC_CONTACT_ENDPOINT; set it empty to fall back to a mailto: compose.
-const DEFAULT_ENDPOINT = 'https://contact-form.andrew-d1a.workers.dev';
-const endpoint = import.meta.env.PUBLIC_CONTACT_ENDPOINT ?? DEFAULT_ENDPOINT;
+// The form posts client-side to the Cloudflare Worker in workers/contact-form/,
+// which relays the message over Resend. Empty endpoint falls back to mailto:.
+const endpoint = FORMS_ENDPOINT;
 
 const topics = [
   'Growth / demand gen work',

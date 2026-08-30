@@ -15,9 +15,11 @@ FROM_ADDRESS = "onboarding@resend.dev"
 FROM_NAME = "andrewallsop.com contact form"
 TO_ADDRESS = "andrew@wunderkindagency.com"
 ALLOWED_ORIGINS = "https://andrewallsop.com,https://www.andrewallsop.com,http://localhost:4321"
+CONVERTKIT_FORM_ID = "9061075"
 
-# RESEND_API_KEY is a secret, set separately:
+# Secrets, set separately:
 #   npx wrangler secret put RESEND_API_KEY
+#   npx wrangler secret put CONVERTKIT_API_KEY
 
 # Per-IP rate limit: 5 submissions per minute, via a Durable Object.
 # The native [[ratelimits]] binding was tried first and did not enforce.

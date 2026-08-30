@@ -1,17 +1,26 @@
+---
+import { NEWSLETTER_ENDPOINT } from '../lib/endpoints';
+---
+
 <footer class="global-cobalt-footer">
   <section class="global-newsletter" aria-labelledby="global-newsletter-heading">
     <div>
       <h2 id="global-newsletter-heading">Occasional emails</h2>
       <p>Notes on growth, AI and useful tinkering. No noise.</p>
     </div>
-    <form id="global-newsletter-form">
+    <form id="global-newsletter-form" data-endpoint={NEWSLETTER_ENDPOINT}>
       <label for="global-newsletter-email">Email address</label>
       <div>
-        <input id="global-newsletter-email" type="email" name="email_address" required placeholder="you@example.com" />
+        <input id="global-newsletter-email" type="email" name="email" required placeholder="you@example.com" />
         <button id="global-newsletter-btn" type="submit">Subscribe ↗</button>
       </div>
-      <p id="global-newsletter-success" class="hidden">You're in! Check your email to confirm.</p>
-      <p id="global-newsletter-error" class="hidden">Something went wrong. Please try again.</p>
+      <!-- Spam trap: hidden from people, tempting to bots. -->
+      <div class="newsletter-honeypot" aria-hidden="true">
+        <label for="global-newsletter-website">Website</label>
+        <input id="global-newsletter-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+      <p id="global-newsletter-success" class="newsletter-success hidden">You're in! Check your email to confirm.</p>
+      <p id="global-newsletter-error" class="newsletter-error hidden">Something went wrong. Please try again.</p>
     </form>
   </section>
 
@@ -37,6 +46,7 @@
       event.preventDefault();
 
       const emailInput = document.getElementById('global-newsletter-email');
+      const honeypot = document.getElementById('global-newsletter-website');
       const button = document.getElementById('global-newsletter-btn');
       const success = document.getElementById('global-newsletter-success');
       const error = document.getElementById('global-newsletter-error');
@@ -45,14 +55,24 @@
 
       success.classList.add('hidden');
       error.classList.add('hidden');
+
+      // Honeypot filled means a bot: show success, send nothing.
+      if (honeypot instanceof HTMLInputElement && honeypot.value.trim() !== '') {
+        form.reset();
+        success.classList.remove('hidden');
+        return;
+      }
+
       button.disabled = true;
       button.textContent = 'Subscribing...';
 
       try {
-        const response = await fetch('https://api.convertkit.com/v3/forms/9061075/subscribe', {
+        // Goes through the Worker so the ConvertKit key stays server-side and
+        // the signup sits behind the same rate limit as the contact form.
+        const response = await fetch(form.dataset.endpoint ?? '', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ api_key: '8YZxYV-nUZS0oKdnQl3x3w', email: emailInput.value }),
+          body: JSON.stringify({ email: emailInput.value }),
         });
 
         if (response.ok) {

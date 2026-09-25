@@ -1,48 +1,10 @@
-<!-- Monochrome dithered artwork for the side gutters. Regenerate the masks with
-     `node scripts/generate-dither-art.mjs`. -->
+<!-- Dithered clouds after John Constable's 1821 cloud studies. Regenerate the
+     masks with `node scripts/generate-dither-art.mjs`. -->
 <div class="dither-art" aria-hidden="true">
   <div class="dither-gutter dither-gutter-left">
-    <div class="dither-eye">
-      <div class="dither-eyeball"></div>
-      <div class="dither-iris"></div>
-    </div>
+    <div class="dither-clouds dither-clouds-left"></div>
   </div>
   <div class="dither-gutter dither-gutter-right">
-    <div class="dither-blackhole"></div>
+    <div class="dither-clouds dither-clouds-right"></div>
   </div>
 </div>
-
-<script>
-  // The iris follows the cursor around the page.
-  const eye = document.querySelector<HTMLElement>('.dither-eye');
-  const iris = document.querySelector<HTMLElement>('.dither-iris');
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  if (eye && iris && !reduceMotion) {
-    const MAX_LOOK = 110;
-    let frame = 0;
-    let pointerX = 0;
-    let pointerY = 0;
-
-    const look = () => {
-      frame = 0;
-      const box = eye.getBoundingClientRect();
-      // Keep in sync with the eye centre printed by the generator script.
-      const dx = pointerX - (box.left + 411);
-      const dy = pointerY - (box.top + 600);
-      const dist = Math.hypot(dx, dy) || 1;
-      const reach = Math.min(MAX_LOOK, dist * 0.2);
-      iris.style.transform = `translate(${(dx / dist) * reach}px, ${(dy / dist) * reach}px)`;
-    };
-
-    window.addEventListener(
-      'pointermove',
-      (event) => {
-        pointerX = event.clientX;
-        pointerY = event.clientY;
-        if (!frame) frame = requestAnimationFrame(look);
-      },
-      { passive: true }
-    );
-  }
-</script>

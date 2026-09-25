@@ -536,15 +536,16 @@ body.cobalt-page,
   opacity: 1;
 }
 
-/* Dithered artwork fills the gutters either side of the 640px rail. It sits
-   behind all content and takes its colour from the theme via 1-bit masks.
-   Sizes and the eye centre come from scripts/generate-dither-art.mjs. */
+/* Dithered clouds fill the gutters either side of the 640px rail. They sit
+   behind all content, take their colour from the theme via 1-bit masks and
+   drift slowly on the same wind. Sizes come from
+   scripts/generate-dither-art.mjs. */
 .dither-art {
   position: fixed;
   z-index: -1;
   inset: 0;
   pointer-events: none;
-  opacity: 0.9;
+  opacity: 0.85;
 }
 
 .dither-gutter {
@@ -564,75 +565,43 @@ body.cobalt-page,
   right: 0;
 }
 
-.dither-eyeball,
-.dither-iris::after,
-.dither-blackhole {
+/* Each piece is 960x1200 and overhangs the rail by the drift distance, so
+   the edge never shows as it moves. */
+.dither-clouds {
+  --drift: 200px;
+  position: absolute;
+  top: 50%;
+  width: 960px;
+  height: 1200px;
+  margin-top: -600px;
   background-color: var(--cobalt-text, #fff);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
+  animation: dither-drift 150s ease-in-out infinite alternate;
+  will-change: transform;
 }
 
-.dither-eye {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  width: 642px;
-  height: 1200px;
-  margin-top: -600px;
+.dither-clouds-left {
+  right: calc(var(--drift) * -1);
+  -webkit-mask-image: url("/images/dither/clouds-left.png");
+  mask-image: url("/images/dither/clouds-left.png");
 }
 
-.dither-eyeball {
-  position: absolute;
-  inset: 0;
-  -webkit-mask-image: url("/images/dither/eye.png");
-  mask-image: url("/images/dither/eye.png");
+.dither-clouds-right {
+  left: calc(var(--drift) * -1);
+  -webkit-mask-image: url("/images/dither/clouds-right.png");
+  mask-image: url("/images/dither/clouds-right.png");
 }
 
-/* The iris is a solid disc of the page colour with the dithered detail on
-   top, so it hides the sclera beneath it as it moves. */
-.dither-iris {
-  position: absolute;
-  top: calc(600px - 142.5px);
-  left: calc(411px - 142.5px);
-  width: 285px;
-  height: 285px;
-  border-radius: 50%;
-  background: var(--cobalt-bg, #0038ff);
-  transition: transform 180ms ease-out;
-}
-
-.dither-iris::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  -webkit-mask-image: url("/images/dither/iris.png");
-  mask-image: url("/images/dither/iris.png");
-}
-
-.dither-blackhole {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 642px;
-  height: 1200px;
-  -webkit-mask-image: url("/images/dither/blackhole.png");
-  mask-image: url("/images/dither/blackhole.png");
-  animation: dither-glitch 7s steps(1, end) infinite;
-}
-
-@keyframes dither-glitch {
-  0%, 89%, 100% { transform: none; }
-  90% { transform: translate(-14px, 3px); }
-  91% { transform: translate(10px, -2px) skewX(-4deg); }
-  92% { transform: none; }
-  95% { transform: translate(-5px, 0); }
-  96% { transform: none; }
+@keyframes dither-drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(var(--drift)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .dither-blackhole {
+  .dither-clouds {
     animation: none;
   }
 }

@@ -537,42 +537,104 @@ body.cobalt-page,
 }
 
 /* Dithered artwork fills the gutters either side of the 640px rail. It sits
-   behind all content and takes its colour from the theme via a 1-bit mask. */
+   behind all content and takes its colour from the theme via 1-bit masks.
+   Sizes and the eye centre come from scripts/generate-dither-art.mjs. */
 .dither-art {
   position: fixed;
   z-index: -1;
   inset: 0;
   pointer-events: none;
-  opacity: 0.28;
+  opacity: 0.9;
 }
 
-.dither-art > div {
+.dither-gutter {
   position: absolute;
   top: 0;
   bottom: 0;
+  overflow: hidden;
+}
+
+.dither-gutter-left {
+  left: 0;
+  right: calc(50% + 320px);
+}
+
+.dither-gutter-right {
+  left: calc(50% + 320px);
+  right: 0;
+}
+
+.dither-eyeball,
+.dither-iris::after,
+.dither-blackhole {
   background-color: var(--cobalt-text, #fff);
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
-  -webkit-mask-size: 640px 1200px;
-  mask-size: 640px 1200px;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
 }
 
-.dither-art-left {
-  left: 0;
-  right: calc(50% + 320px);
-  -webkit-mask-image: url("/images/dither/left.png");
-  mask-image: url("/images/dither/left.png");
-  -webkit-mask-position: right bottom;
-  mask-position: right bottom;
-}
-
-.dither-art-right {
-  left: calc(50% + 320px);
+.dither-eye {
+  position: absolute;
+  top: 50%;
   right: 0;
-  -webkit-mask-image: url("/images/dither/right.png");
-  mask-image: url("/images/dither/right.png");
-  -webkit-mask-position: left top;
-  mask-position: left top;
+  width: 642px;
+  height: 1200px;
+  margin-top: -600px;
+}
+
+.dither-eyeball {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: url("/images/dither/eye.png");
+  mask-image: url("/images/dither/eye.png");
+}
+
+/* The iris is a solid disc of the page colour with the dithered detail on
+   top, so it hides the sclera beneath it as it moves. */
+.dither-iris {
+  position: absolute;
+  top: calc(600px - 142.5px);
+  left: calc(411px - 142.5px);
+  width: 285px;
+  height: 285px;
+  border-radius: 50%;
+  background: var(--cobalt-bg, #0038ff);
+  transition: transform 180ms ease-out;
+}
+
+.dither-iris::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  -webkit-mask-image: url("/images/dither/iris.png");
+  mask-image: url("/images/dither/iris.png");
+}
+
+.dither-blackhole {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 642px;
+  height: 1200px;
+  -webkit-mask-image: url("/images/dither/blackhole.png");
+  mask-image: url("/images/dither/blackhole.png");
+  animation: dither-glitch 7s steps(1, end) infinite;
+}
+
+@keyframes dither-glitch {
+  0%, 89%, 100% { transform: none; }
+  90% { transform: translate(-14px, 3px); }
+  91% { transform: translate(10px, -2px) skewX(-4deg); }
+  92% { transform: none; }
+  95% { transform: translate(-5px, 0); }
+  96% { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dither-blackhole {
+    animation: none;
+  }
 }
 
 @media (max-width: 767px) {

@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import GlobalFooter from '../components/GlobalFooter.astro';
 import Grain from '../components/Grain.astro';
+import DitherArt from '../components/DitherArt.astro';
 import GoogleTagManagerHead from '../components/GoogleTagManagerHead.astro';
 import GoogleTagManagerBody from '../components/GoogleTagManagerBody.astro';
 
@@ -112,6 +113,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       <slot />
     </main>
     <GlobalFooter />
+    <DitherArt />
     <Grain />
   </body>
 </html>

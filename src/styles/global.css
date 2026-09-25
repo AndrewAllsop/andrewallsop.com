@@ -536,6 +536,51 @@ body.cobalt-page,
   opacity: 1;
 }
 
+/* Dithered artwork fills the gutters either side of the 640px rail. It sits
+   behind all content and takes its colour from the theme via a 1-bit mask. */
+.dither-art {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.28;
+}
+
+.dither-art > div {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background-color: var(--cobalt-text, #fff);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 640px 1200px;
+  mask-size: 640px 1200px;
+}
+
+.dither-art-left {
+  left: 0;
+  right: calc(50% + 320px);
+  -webkit-mask-image: url("/images/dither/left.png");
+  mask-image: url("/images/dither/left.png");
+  -webkit-mask-position: right bottom;
+  mask-position: right bottom;
+}
+
+.dither-art-right {
+  left: calc(50% + 320px);
+  right: 0;
+  -webkit-mask-image: url("/images/dither/right.png");
+  mask-image: url("/images/dither/right.png");
+  -webkit-mask-position: left top;
+  mask-position: left top;
+}
+
+@media (max-width: 767px) {
+  .dither-art {
+    display: none;
+  }
+}
+
 .cobalt-noise {
   position: fixed;
   z-index: 50;

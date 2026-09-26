@@ -3,6 +3,7 @@ import '../../styles/global.css';
 import { getCollection } from 'astro:content';
 import Header from '../../components/Header.astro';
 import Grain from '../../components/Grain.astro';
+import DitherArt from '../../components/DitherArt.astro';
 import GlobalFooter from '../../components/GlobalFooter.astro';
 import GoogleTagManagerHead from '../../components/GoogleTagManagerHead.astro';
 import GoogleTagManagerBody from '../../components/GoogleTagManagerBody.astro';
@@ -92,6 +93,7 @@ const sortedPosts = posts
     </main>
 
     <GlobalFooter />
+    <DitherArt />
     <Grain />
 
   </body>

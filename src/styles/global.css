@@ -585,14 +585,53 @@ body.cobalt-page,
 
 .dither-clouds-left {
   right: calc(var(--drift) * -1);
-  -webkit-mask-image: url("/images/dither/clouds-left.png");
-  mask-image: url("/images/dither/clouds-left.png");
 }
 
 .dither-clouds-right {
   left: calc(var(--drift) * -1);
-  -webkit-mask-image: url("/images/dither/clouds-right.png");
-  mask-image: url("/images/dither/clouds-right.png");
+}
+
+/* --art is set per load by DitherArt.astro. */
+.dither-clouds {
+  -webkit-mask-image: var(--art);
+  mask-image: var(--art);
+}
+
+/* A quiet credit in the bottom corner of each gutter. It sits above the
+   content layer so the link stays clickable. */
+.dither-credit {
+  position: fixed;
+  z-index: 1;
+  bottom: 0.75rem;
+  max-width: calc(50% - 320px - 2rem);
+  margin: 0;
+  padding: 0.15rem 0.4rem;
+  background: var(--cobalt-bg, #0038ff);
+  color: var(--cobalt-text, #fff);
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
+.dither-credit a {
+  opacity: 0.6;
+  transition: opacity 150ms ease;
+}
+
+.dither-credit a:hover,
+.dither-credit a:focus-visible {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.dither-credit-left {
+  left: 0.75rem;
+}
+
+.dither-credit-right {
+  right: 0.75rem;
+  text-align: right;
 }
 
 @keyframes dither-drift {
@@ -608,6 +647,12 @@ body.cobalt-page,
 
 @media (max-width: 767px) {
   .dither-art {
+    display: none;
+  }
+}
+
+@media (max-width: 1099px) {
+  .dither-credit {
     display: none;
   }
 }

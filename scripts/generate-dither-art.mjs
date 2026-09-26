@@ -2,11 +2,10 @@
 //
 //   node scripts/generate-dither-art.mjs
 //
-// Sources (public domain, via Wikimedia Commons), cropped and tone-mapped into
-// greyscale maps in scripts/dither-sources/ (white = cloud light, black = sky):
-//   clouds-left.png  - John Constable, Study of Clouds, 1821 (Whitworth Art Gallery)
-//   clouds-right.png - John Constable, Cloud Study, Hampstead; Tree at Right, 1821
-//                      (Royal Academy of Arts)
+// The artworks are John Constable's cloud studies (public domain, via
+// Wikimedia Commons), listed with their credits in src/data/cloud-studies.json.
+// Each was cropped to a 4:5 window and tone-mapped into a greyscale map in
+// scripts/dither-sources/<id>.png (white = cloud light, black = sky).
 //
 // Each map is ordered-dithered into a 1-bit PNG used as a CSS mask, so the
 // colour comes from the active site theme. Sizes are mirrored in the
@@ -15,6 +14,7 @@
 import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs';
 import { inflateSync, deflateSync } from 'node:zlib';
 
+const STUDIES = JSON.parse(readFileSync(new URL('../src/data/cloud-studies.json', import.meta.url), 'utf8'));
 const SRC_DIR = new URL('./dither-sources/', import.meta.url);
 const OUT_DIR = new URL('../public/images/dither/', import.meta.url);
 
@@ -136,7 +136,7 @@ function encodeMask(w, h, bits, scale) {
 rmSync(OUT_DIR, { recursive: true, force: true });
 mkdirSync(OUT_DIR, { recursive: true });
 
-for (const name of ['clouds-left', 'clouds-right']) {
+for (const { id: name } of STUDIES) {
   const tones = decodeGreyPng(readFileSync(new URL(`${name}.png`, SRC_DIR)));
   const png = encodeMask(tones.width, tones.height, dither(tones), SCALE);
   writeFileSync(new URL(`${name}.png`, OUT_DIR), png);

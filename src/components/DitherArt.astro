@@ -1,10 +1,43 @@
-<!-- Dithered clouds after John Constable's 1821 cloud studies. Regenerate the
-     masks with `node scripts/generate-dither-art.mjs`. -->
+---
+// Dithered clouds after John Constable's cloud studies. Each page load picks a
+// different study for each gutter. Regenerate the masks with
+// `node scripts/generate-dither-art.mjs`.
+import studies from '../data/cloud-studies.json';
+
+const [left, right] = studies;
+const art = (id: string) => `--art: url(/images/dither/${id}.png)`;
+const label = (s: (typeof studies)[number]) =>
+  `John Constable, ${s.title}, ${s.date}. ${s.collection}. Public domain, via Wikimedia Commons.`;
+---
+
 <div class="dither-art" aria-hidden="true">
   <div class="dither-gutter dither-gutter-left">
-    <div class="dither-clouds dither-clouds-left"></div>
+    <div class="dither-clouds dither-clouds-left" style={art(left.id)}></div>
   </div>
   <div class="dither-gutter dither-gutter-right">
-    <div class="dither-clouds dither-clouds-right"></div>
+    <div class="dither-clouds dither-clouds-right" style={art(right.id)}></div>
   </div>
 </div>
+<p class="dither-credit dither-credit-left">
+  <a href={left.source} title={label(left)} target="_blank" rel="noopener">After Constable, <i>{left.title}</i>, <span>{left.date}</span></a>
+</p>
+<p class="dither-credit dither-credit-right">
+  <a href={right.source} title={label(right)} target="_blank" rel="noopener">After Constable, <i>{right.title}</i>, <span>{right.date}</span></a>
+</p>
+
+<script is:inline define:vars={{ studies }}>
+  // Runs before first paint: swap in two different random studies.
+  (() => {
+    const a = Math.floor(Math.random() * studies.length);
+    const b = (a + 1 + Math.floor(Math.random() * (studies.length - 1))) % studies.length;
+    [['left', studies[a]], ['right', studies[b]]].forEach(([side, s]) => {
+      document.querySelector(`.dither-clouds-${side}`)?.style.setProperty('--art', `url(/images/dither/${s.id}.png)`);
+      const link = document.querySelector(`.dither-credit-${side} a`);
+      if (!link) return;
+      link.href = s.source;
+      link.title = `John Constable, ${s.title}, ${s.date}. ${s.collection}. Public domain, via Wikimedia Commons.`;
+      link.querySelector('i').textContent = s.title;
+      link.querySelector('span').textContent = s.date;
+    });
+  })();
+</script>

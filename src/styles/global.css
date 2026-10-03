@@ -938,6 +938,14 @@ html[data-site-theme="mono"] .dark body.cobalt-inner-page {
 .newsletter-success { color: var(--cobalt-text, #fff); }
 .newsletter-error { color: #ffb4ab; }
 
+.contact-field-hint {
+  margin: 0;
+  color: var(--cobalt-text);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  opacity: 0.6;
+}
+
 /* Hidden from people, reachable by bots. */
 .newsletter-honeypot {
   position: absolute;

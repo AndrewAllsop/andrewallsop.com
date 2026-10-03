@@ -77,6 +77,21 @@ const topics = [
       <p class="contact-field-error" id="contact-message-error" hidden></p>
     </div>
 
+    <div class="contact-field">
+      <label for="contact-referral">How did you hear about me?</label>
+      <input
+        id="contact-referral"
+        name="referral"
+        type="text"
+        maxlength="200"
+        placeholder="A VC, a friend, LinkedIn..."
+        aria-describedby="contact-referral-hint"
+      />
+      <p class="contact-field-hint" id="contact-referral-hint">
+        Referred by a VC or partner? Include their name.
+      </p>
+    </div>
+
     <!-- Spam trap: hidden from people, tempting to bots. -->
     <div class="contact-honeypot" aria-hidden="true">
       <label for="contact-website">Website</label>
@@ -163,7 +178,8 @@ const topics = [
 
   function buildMailto(email: string, values: Record<string, string>) {
     const subject = `${values.topic || 'Website enquiry'} — ${values.name}`;
-    const body = `${values.message}\n\n—\n${values.name}\n${values.email}`;
+    const referral = values.referral ? `\nHeard about you via: ${values.referral}` : '';
+    const body = `${values.message}\n\n—\n${values.name}\n${values.email}${referral}`;
     return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
@@ -239,6 +255,7 @@ const topics = [
             email: values.email,
             topic: values.topic,
             message: values.message,
+            referral: values.referral,
           }),
         });
 

@@ -19,7 +19,7 @@ export class EmailSendError extends Error {
 }
 
 function buildBody(submission: Submission): string {
-  const { name, email, topic, message } = submission;
+  const { name, email, topic, message, referral } = submission;
 
   return [
     'New message from the andrewallsop.com contact form.',
@@ -27,6 +27,7 @@ function buildBody(submission: Submission): string {
     `Name:  ${headerSafe(name)}`,
     `Email: ${email}`,
     `Topic: ${headerSafe(topic) || '(not specified)'}`,
+    `Heard about you via: ${headerSafe(referral) || '(not specified)'}`,
     '',
     '---',
     '',

@@ -5,6 +5,8 @@ export interface Submission {
   email: string;
   topic: string;
   message: string;
+  /** Optional "how did you hear about me" answer. */
+  referral: string;
 }
 
 export type ValidationResult =
@@ -31,6 +33,7 @@ const MAX_LENGTH = {
   email: 320,
   topic: 120,
   message: 5000,
+  referral: 200,
 } as const;
 
 const MIN_MESSAGE_LENGTH = 10;
@@ -59,6 +62,7 @@ export function validate(payload: unknown): ValidationResult {
   const email = readField(source, 'email');
   const topic = readField(source, 'topic');
   const message = readField(source, 'message');
+  const referral = readField(source, 'referral');
 
   if (name.length === 0) return { ok: false, error: 'A name is required.' };
   if (email.length === 0) return { ok: false, error: 'An email address is required.' };
@@ -68,11 +72,11 @@ export function validate(payload: unknown): ValidationResult {
   }
 
   for (const [field, limit] of Object.entries(MAX_LENGTH)) {
-    const value = { name, email, topic, message }[field as keyof typeof MAX_LENGTH];
+    const value = { name, email, topic, message, referral }[field as keyof typeof MAX_LENGTH];
     if (value.length > limit) {
       return { ok: false, error: `The ${field} field is too long (max ${limit} characters).` };
     }
   }
 
-  return { ok: true, value: { name, email, topic, message } };
+  return { ok: true, value: { name, email, topic, message, referral } };
 }

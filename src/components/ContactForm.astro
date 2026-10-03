@@ -66,18 +66,6 @@ const topics = [
     </div>
 
     <div class="contact-field">
-      <label for="contact-message">Message</label>
-      <textarea
-        id="contact-message"
-        name="message"
-        rows="6"
-        required
-        placeholder="A couple of lines on what you're working on and where it's stuck."
-        aria-describedby="contact-message-error"></textarea>
-      <p class="contact-field-error" id="contact-message-error" hidden></p>
-    </div>
-
-    <div class="contact-field">
       <label for="contact-referral">How did you hear about me?</label>
       <input
         id="contact-referral"
@@ -90,6 +78,18 @@ const topics = [
       <p class="contact-field-hint" id="contact-referral-hint">
         Referred by a VC or partner? Include their name.
       </p>
+    </div>
+
+    <div class="contact-field">
+      <label for="contact-message">Message</label>
+      <textarea
+        id="contact-message"
+        name="message"
+        rows="6"
+        required
+        placeholder="A couple of lines on what you're working on and where it's stuck."
+        aria-describedby="contact-message-error"></textarea>
+      <p class="contact-field-error" id="contact-message-error" hidden></p>
     </div>
 
     <!-- Spam trap: hidden from people, tempting to bots. -->

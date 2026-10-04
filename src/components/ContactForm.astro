@@ -1,5 +1,5 @@
 ---
-import { FORMS_ENDPOINT } from '../lib/endpoints';
+import { FORMS_ENDPOINT, TURNSTILE_SITE_KEY } from '../lib/endpoints';
 
 const CONTACT_EMAIL = 'andrew@wunderkindagency.com';
 
@@ -26,6 +26,7 @@ const topics = [
     class="contact-form"
     data-endpoint={endpoint}
     data-email={CONTACT_EMAIL}
+    data-turnstile-sitekey={TURNSTILE_SITE_KEY}
     novalidate
   >
     <div class="contact-field-row">
@@ -97,6 +98,9 @@ const topics = [
       <label for="contact-website">Website</label>
       <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off" />
     </div>
+
+    <!-- Invisible Cloudflare Turnstile check; renders nothing visible. -->
+    <div id="contact-turnstile"></div>
 
     <div class="contact-actions">
       <button id="contact-submit" type="submit">Send message ↗</button>
@@ -183,6 +187,44 @@ const topics = [
     return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
+  interface TurnstileApi {
+    render(container: HTMLElement, options: { sitekey: string }): string;
+    getResponse(widgetId: string): string | undefined;
+    reset(widgetId: string): void;
+  }
+
+  const TURNSTILE_SCRIPT =
+    'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+
+  let turnstileLoading: Promise<TurnstileApi> | null = null;
+
+  function turnstileApi(): TurnstileApi | undefined {
+    return (window as unknown as { turnstile?: TurnstileApi }).turnstile;
+  }
+
+  /** Loads Cloudflare's Turnstile script once, however many times the form mounts. */
+  function loadTurnstile(): Promise<TurnstileApi> {
+    const existing = turnstileApi();
+    if (existing) return Promise.resolve(existing);
+
+    turnstileLoading ??= new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = TURNSTILE_SCRIPT;
+      script.async = true;
+      script.onload = () => {
+        const api = turnstileApi();
+        if (api) resolve(api);
+        else reject(new Error('Turnstile did not initialise'));
+      };
+      script.onerror = () => {
+        turnstileLoading = null;
+        reject(new Error('Turnstile failed to load'));
+      };
+      document.head.appendChild(script);
+    });
+    return turnstileLoading;
+  }
+
   function setupContactForm() {
     const form = document.getElementById('contact-form');
     if (!(form instanceof HTMLFormElement) || form.dataset.bound === 'true') return;
@@ -193,6 +235,20 @@ const topics = [
     if (!(button instanceof HTMLButtonElement) || !(status instanceof HTMLElement)) return;
 
     const fields: FieldName[] = ['name', 'email', 'message'];
+
+    // Invisible bot check. The widget id stays null if the script is blocked.
+    let turnstile: TurnstileApi | null = null;
+    let widgetId: string | null = null;
+    const sitekey = form.dataset.turnstileSitekey ?? '';
+    const container = document.getElementById('contact-turnstile');
+    if (sitekey && container instanceof HTMLElement && form.dataset.endpoint) {
+      loadTurnstile()
+        .then((api) => {
+          turnstile = api;
+          widgetId = api.render(container, { sitekey });
+        })
+        .catch((error) => console.error(error));
+    }
 
     // Clear a field's error as soon as the person fixes it.
     fields.forEach((field) => {
@@ -243,6 +299,17 @@ const topics = [
         return;
       }
 
+      const turnstileToken =
+        turnstile && widgetId !== null ? turnstile.getResponse(widgetId) ?? '' : '';
+      if (!turnstileToken) {
+        setStatus(
+          status,
+          'error',
+          `Still checking your browser. Try again in a moment, or email ${email}.`
+        );
+        return;
+      }
+
       button.disabled = true;
       button.textContent = 'Sending...';
 
@@ -256,6 +323,7 @@ const topics = [
             topic: values.topic,
             message: values.message,
             referral: values.referral,
+            turnstileToken,
           }),
         });
 
@@ -268,6 +336,8 @@ const topics = [
       } catch {
         setStatus(status, 'error', `Could not send that. Please email ${email} instead.`);
       } finally {
+        // Each token works once, so fetch a fresh one for any retry.
+        if (turnstile && widgetId !== null) turnstile.reset(widgetId);
         button.disabled = false;
         button.textContent = 'Send message ↗';
       }

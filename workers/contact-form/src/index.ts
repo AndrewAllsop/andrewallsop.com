@@ -5,13 +5,15 @@
  *   POST /subscribe  newsletter    -> ConvertKit
  *
  * Both routes share the origin allowlist, per-IP rate limit and honeypot.
+ * The contact route also requires a valid Cloudflare Turnstile token.
  */
 
 import { corsHeaders, isAllowedOrigin, parseAllowedOrigins } from './cors';
 import { sendSubmission } from './email';
 import { RateLimiter, withinRateLimit } from './rate-limit';
 import { subscribe, validateSubscription } from './subscribe';
-import { validate } from './validate';
+import { verifyTurnstile } from './turnstile';
+import { readField, validate } from './validate';
 
 export interface Env {
   /** Set with `wrangler secret put RESEND_API_KEY` — never in wrangler.toml. */
@@ -19,6 +21,8 @@ export interface Env {
   /** Set with `wrangler secret put CONVERTKIT_API_KEY`. */
   CONVERTKIT_API_KEY: string;
   CONVERTKIT_FORM_ID: string;
+  /** Set with `wrangler secret put TURNSTILE_SECRET_KEY`. */
+  TURNSTILE_SECRET_KEY: string;
   RATE_LIMITER?: DurableObjectNamespace;
   FROM_ADDRESS: string;
   FROM_NAME: string;
@@ -35,10 +39,25 @@ function json(body: unknown, status: number, headers: Headers_): Response {
   });
 }
 
-async function handleContact(payload: unknown, env: Env, headers: Headers_): Promise<Response> {
+async function handleContact(
+  payload: unknown,
+  env: Env,
+  headers: Headers_,
+  clientIp: string | null
+): Promise<Response> {
   const result = validate(payload);
   if (!result.ok) {
     return json({ error: result.error }, 400, headers);
+  }
+
+  if (!env.TURNSTILE_SECRET_KEY) {
+    console.error('TURNSTILE_SECRET_KEY is not set');
+    return json({ error: 'Could not send the message.' }, 500, headers);
+  }
+
+  const token = readField(payload as Record<string, unknown>, 'turnstileToken');
+  if (!(await verifyTurnstile(env.TURNSTILE_SECRET_KEY, token, clientIp))) {
+    return json({ error: 'Could not verify this submission. Please try again.' }, 403, headers);
   }
 
   if (!env.RESEND_API_KEY) {
@@ -107,9 +126,10 @@ export default {
     }
 
     // One object per client IP; the binding is optional so local dev still works.
+    const clientIp = request.headers.get('CF-Connecting-IP');
+
     if (env.RATE_LIMITER) {
-      const clientIp = request.headers.get('CF-Connecting-IP') ?? 'unknown';
-      if (!(await withinRateLimit(env.RATE_LIMITER, clientIp))) {
+      if (!(await withinRateLimit(env.RATE_LIMITER, clientIp ?? 'unknown'))) {
         return json({ error: 'Too many requests. Please try again shortly.' }, 429, headers);
       }
     }
@@ -125,6 +145,6 @@ export default {
 
     return path === '/subscribe'
       ? handleSubscribe(payload, env, headers)
-      : handleContact(payload, env, headers);
+      : handleContact(payload, env, headers, clientIp);
   },
 };

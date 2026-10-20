@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    { "source": "/andy4president", "destination": "https://announcementamatic.vercel.app/andy4president" },
+    { "source": "/andy4president/:path*", "destination": "https://announcementamatic.vercel.app/andy4president/:path*" }
+  ]
+}

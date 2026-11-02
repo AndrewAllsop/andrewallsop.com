@@ -1,0 +1,173 @@
+[
+  {
+    "name": "EmDash Plugins",
+    "category": "Plugins",
+    "requires": "Working sandboxed EmDash plugin",
+    "action": "Build a useful CMS integration, validate its manifest and publish using an Atmosphere account. Include accurate author and website metadata.",
+    "url": "https://docs.emdashcms.com/plugins/creating-plugins/publishing/",
+    "note": "Publishing documented; listing acceptance and link attributes still need checking.",
+    "source": "https://x.com/tarasshyn/status/2116573909839430019"
+  },
+  {
+    "name": "Make",
+    "category": "Automation",
+    "requires": "Tested custom app for your API",
+    "action": "Build a connection and useful modules. Test real scenarios, then request app review. Plan for ongoing support.",
+    "url": "https://developers.make.com/custom-apps-documentation/app-review",
+    "note": "Review required before the app is available to all users.",
+    "source": "https://x.com/tarasshyn/status/2116178561010966566"
+  },
+  {
+    "name": "Firefox Add-ons",
+    "category": "Extensions",
+    "requires": "Firefox-compatible browser extension",
+    "action": "Package and test your extension, provide source and reproducible build instructions where required, and submit for signing and public distribution.",
+    "url": "https://extensionworkshop.com/documentation/publish/",
+    "note": "Porting a Chrome extension still requires compatibility and policy checks.",
+    "source": "https://x.com/tarasshyn/status/2115806611444834743"
+  },
+  {
+    "name": "ChatGPT plugin directory",
+    "category": "AI & MCP",
+    "requires": "Useful plugin package; verified publisher",
+    "action": "Prepare the plugin ZIP, upload it through the platform, resolve automated findings and submit for review. Connect and test your MCP server if included.",
+    "url": "https://developers.openai.com/apps-sdk/deploy/submission/",
+    "note": "Current submission docs differ from the original post. Approval is required; citation preference is not established.",
+    "source": "https://x.com/tarasshyn/status/2115444752803926203"
+  },
+  {
+    "name": "n8n",
+    "category": "Automation",
+    "requires": "Community node wrapping your API",
+    "action": "Build and test nodes and credentials. Publish to npm using GitHub Actions with provenance, then submit through the Creator Portal for verification.",
+    "url": "https://docs.n8n.io/integrations/creating-nodes/deploy/submit-community-nodes/",
+    "note": "An npm package alone is not a verified n8n listing.",
+    "source": "https://x.com/tarasshyn/status/2115088756977860778"
+  },
+  {
+    "name": "Microsoft Edge Add-ons",
+    "category": "Extensions",
+    "requires": "Tested Edge-compatible extension",
+    "action": "Register in Partner Center, upload your package and complete store, privacy and certification details. Submit for review.",
+    "url": "https://learn.microsoft.com/en-us/microsoft-edge/extensions/publish/publish-extension",
+    "note": "Test your Chromium extension in Edge before submitting it.",
+    "source": "https://x.com/tarasshyn/status/2114726745043595384"
+  },
+  {
+    "name": "Notion Marketplace",
+    "category": "Automation",
+    "requires": "Public OAuth connection",
+    "action": "Build a useful workflow for Notion users. Choose the appropriate installation scope when creating the public connection, then complete Marketplace security review.",
+    "url": "https://developers.notion.com",
+    "note": "Public connections can exist without Marketplace approval; those are different milestones.",
+    "source": "https://x.com/tarasshyn/status/2114368719488967038"
+  },
+  {
+    "name": "Fern Agent Score",
+    "category": "Documentation",
+    "requires": "Public product documentation",
+    "action": "Assess your documentation with Agent Score and improve readability, discovery and authentication access. Check whether a public report is available for your submission.",
+    "url": "https://buildwithfern.com/agent-score",
+    "note": "Assessment tool confirmed. The thread\u2019s public-report backlink claim was not independently verified.",
+    "source": "https://x.com/tarasshyn/status/2113979571884429494"
+  },
+  {
+    "name": "Postman API Network",
+    "category": "API & packages",
+    "requires": "Public API collection and team profile",
+    "action": "Make your team profile public, create a public workspace and publish useful API collections and examples. Remove credentials before sharing.",
+    "url": "https://learning.postman.com/latest-v-12/docs/collaborating-in-postman/using-workspaces/public-workspaces",
+    "note": "A public team profile appears on the API Network. Confirm your website link on the published profile.",
+    "source": "https://x.com/tarasshyn/status/2113617183830086115"
+  },
+  {
+    "name": "Chrome Web Store",
+    "category": "Extensions",
+    "requires": "Useful browser extension",
+    "action": "Register a developer account, upload the extension ZIP and complete listing, privacy and test instructions. Submit for review.",
+    "url": "https://developer.chrome.com/docs/webstore/publish",
+    "note": "Registration may involve a fee. The directory is free to use; not every opportunity is free to execute.",
+    "source": "https://x.com/tarasshyn/status/2113261569354162494"
+  },
+  {
+    "name": "npm",
+    "category": "API & packages",
+    "requires": "Maintained CLI or SDK",
+    "action": "Package a useful API client or CLI with a clear README, homepage and repository. Test it, configure secure publishing and publish a public package.",
+    "url": "https://docs.npmjs.com/creating-and-publishing-unscoped-public-packages/",
+    "note": "Libraries.io and npm.io aggregate packages. Extra listings are not guaranteed or separate submissions.",
+    "source": "https://x.com/tarasshyn/status/2112893275933741142"
+  },
+  {
+    "name": "RapidAPI",
+    "category": "API & packages",
+    "requires": "Working, documented API",
+    "action": "Create an API Project in Studio, import your API specification and complete the Hub Listing. Check current access, authentication and commercial settings before making it public.",
+    "url": "https://docs.rapidapi.com/docs/add-api-getting-started",
+    "note": "Do not assume the post\u2019s free-plan or bring-your-own-key setup fits every API.",
+    "source": "https://x.com/tarasshyn/status/2112529846156882274"
+  },
+  {
+    "name": "ClawHub",
+    "category": "AI & MCP",
+    "requires": "Useful agent skill or plugin",
+    "action": "Prepare instructions that explain a real product workflow, authentication and safe use. Review current publisher and moderation requirements before uploading.",
+    "url": "https://clawhub.ai",
+    "note": "Registry confirmed. Exact commands, no-review claims and backlink treatment remain unverified.",
+    "source": "https://x.com/tarasshyn/status/2112167451794219483"
+  },
+  {
+    "name": "Smithery",
+    "category": "AI & MCP",
+    "requires": "Working MCP server",
+    "action": "Prepare clear tool descriptions and a product homepage. Use the current publishing flow and test connectivity and authentication after listing.",
+    "url": "https://smithery.ai",
+    "note": "Platform has changed since the post; recheck gateway and authentication instructions rather than copying them.",
+    "source": "https://x.com/tarasshyn/status/2111809522671202657"
+  },
+  {
+    "name": "Glama",
+    "category": "AI & MCP",
+    "requires": "Working MCP server or public repository",
+    "action": "Find an existing listing or submit your server. Verify ownership where available, document authentication and check the listing\u2019s health and tool descriptions.",
+    "url": "https://glama.ai/mcp",
+    "note": "Directory confirmed. Registry ingestion timing and link attributes are not guaranteed.",
+    "source": "https://x.com/tarasshyn/status/2111445575669346623"
+  },
+  {
+    "name": "Official MCP Registry",
+    "category": "AI & MCP",
+    "requires": "Publishable MCP server metadata",
+    "action": "Prepare accurate server metadata and use the registry\u2019s publishing documentation to authenticate ownership and publish a version.",
+    "url": "https://registry.modelcontextprotocol.io",
+    "note": "A registry entry is distribution metadata; downstream directory links are not guaranteed.",
+    "source": "https://x.com/tarasshyn/status/2111078201090777406"
+  },
+  {
+    "name": "Claude community directory",
+    "category": "AI & MCP",
+    "requires": "Eligible account and supported connector",
+    "action": "Check the directory management page in your account for current eligibility and submission options before building around this opportunity.",
+    "url": "https://claude.ai/directory/manage",
+    "note": "Needs verification: account-gated route. The author reports a noindex page; do not count this as an indexed SEO backlink.",
+    "source": "https://x.com/tarasshyn/status/2110716568652976638"
+  },
+  {
+    "name": "Vercel Connect",
+    "category": "AI & MCP",
+    "requires": "Supported API or MCP integration",
+    "action": "Review the connector catalogue and onboarding route. Describe the product clearly and provide the authentication and connection details requested.",
+    "url": "https://vercel.com/connect/browse",
+    "note": "Catalogue confirmed. Approval time and acceptance are not guaranteed.",
+    "source": "https://x.com/tarasshyn/status/2110349682559910166"
+  },
+  {
+    "name": "Zapier",
+    "category": "Automation",
+    "requires": "Useful integration with tested actions",
+    "action": "Use the developer platform to build and test your app\u2019s triggers and actions, then follow the public integration review route.",
+    "url": "https://docs.zapier.com",
+    "note": "Do not confuse connecting to Zapier MCP with getting your own app publicly listed.",
+    "source": "https://x.com/tarasshyn/status/2109628678682431507"
+  }
+]

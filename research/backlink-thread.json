@@ -1,0 +1,187 @@
+[
+  {
+    "id": "2116573909839430019",
+    "text": "Another great visibility hack for your SaaS is to get listed on Cloudflare's new CMS, EmDash (DR 76). You get a dedicated page in its plugin directory and a dofollow link\n\nMassive shout-out to @apexmarketinguk for sharing it with me\n\nHere is how:\n\n1. Build a small EmDash plugin that connects to your SaaS (ask Claude to do it for you).\n2. Put your website in author.url in the manifest. That's your dofollow link.\n3. Log in with Bluesky and run emdash-plugin publish.\n\nA few notes:\n\nUse your domain as your Bluesky handle, so your listing reads @ yourdomain .com.",
+    "urls": []
+  },
+  {
+    "id": "2116178561010966566",
+    "text": "Another great visibility hack for your SaaS is to get a verified integration on Make (DR 90). You get a dedicated page with a dofollow link to your website.\n\nHere is how:\n\n1. Sign up for a regular https://t.co/3j04CBtITV account. The free plan is enough to build and test.\n2. Open Custom Apps and create an app: a connection that asks for the API key, plus one module per main action like create, list and delete (ask Claude to build it for you from your OpenAPI file).\n3. Run every module in a real scenario. Make wants a link to a successful run for each module, plus one scenario that shows an API error.\n4. Make all modules visible, fill in the review form with those scenario links and your docs URL, and click Request review.\n\nA few notes:\n\nMake users can add your app to their scenarios straight from the module picker.",
+    "urls": [
+      {
+        "display_url": "make.com",
+        "expanded_url": "http://make.com",
+        "indices": [
+          197,
+          220
+        ],
+        "url": "https://t.co/3j04CBtITV"
+      }
+    ]
+  },
+  {
+    "id": "2115806611444834743",
+    "text": "Another great visibility hack for your SaaS is to publish your extension on Firefox Add-ons. It gets its own page on Mozilla's domain (DR 96).\n\nIf you already have a Chrome extension, you're almost done. Firefox runs the same code with two small additions.\n\nHere is how:\n\n1. Build a small extension that does one thing from your SaaS, right in the browser. I made a small post scheduler that works with an API key (ask Claude to do it for you).\n2. Add a Firefox block to your manifest: an extension ID and the data your extension collects. Firefox requires both.\n3. Create a free developer account on addons.mozilla .org and upload the zip.\n4. If your code is bundled, upload the source code too, with build steps so the reviewer can rebuild it.\n\nA few notes:\n\nKeep it simple and related to your website. One clear job is enough.\n\nAI loves to cite Firefox Add-ons pages, and they rank very high on Google.",
+    "urls": []
+  },
+  {
+    "id": "2115444752803926203",
+    "text": "Another great visibility hack for your SaaS is to get listed as a ChatGPT plugin (DR 93). You get a dedicated page with a dofollow link.\n\nHere is how:\n\n1. Have a remote MCP server with OAuth for your SaaS.\n2. Verify your identity in your OpenAI platform organization settings.\n3. Go to platform.openai .com/plugins, create a plugin, paste your MCP server URL and scan the tools.\n4. Fill in the listing: name, description, logo and 3 starter prompts.\n5. Add 5 test cases, 3 negative test cases, a test account and a demo video, then submit.\n\nA few notes:\n\nChatGPT users can install your plugin in one click and use your SaaS right from the chat.\n\nChatGPT prioritises the Marketplace when searching for solutions to customers' queries.",
+    "urls": []
+  },
+  {
+    "id": "2115088756977860778",
+    "text": "Another great visibility hack for your SaaS is to get listed on n8n (DR 90). You get a dedicated page with a dofollow link.\n\nHere is how:\n\n1. Build an n8n node for your API: a credential for the API key, plus one operation per main action (ask Claude to do it for you from your OpenAPI file).\n2. Put it in a public GitHub repo and publish it to npm from GitHub Actions with provenance. n8n requires that for verification.\n3. Submit it in the n8n Creator Portal with an integration name and a short description.\n4. Record a demo video on a self-hosted n8n with no cuts: install the exact version, add the credential, run a couple of operations and use the node as an AI agent tool.\n\nA few notes:\n\nn8n users will be able to install your integration directly from the dashboard.\n\nYou'll get a dedicated page on a high-authority website with multiple mentions and a dofollow link.",
+    "urls": []
+  },
+  {
+    "id": "2114726745043595384",
+    "text": "Another great visibility hack for your SaaS is to publish your extension on Microsoft (DR 96) Edge Add-ons. It gets its own page on Microsoft, with a dofollow link to your website.\n\nIf you already have a Chrome extension, you're basically done. Edge runs on Chromium, so the same zip works.\n\nHere is how:\n\n1. Build a small extension that does one thing from your SaaS, right in the browser. I made a small post scheduler that works with an API key (ask Claude to do it for you).\n2. Register in Microsoft Partner Center as an Edge Add-ons developer. It's free.\n3. Upload the zip, fill in the listing (description, logo, screenshots) and submit it for review.\n\nA few notes:\n\nKeep it simple and related to your website. One clear job is enough.\n\nThe developer name on the page links straight to your website, and that link is dofollow.",
+    "urls": []
+  },
+  {
+    "id": "2114368719488967038",
+    "text": "Another great visibility hack for your SaaS is to get listed on the Notion Marketplace (DR 90). You get a dedicated page and a dofollow link.\n\nShoutout to @aarondelasy for sharing it\n\nHere is how:\n\n1. Find a simple use case that sends data from your SaaS into Notion, like new leads or reports landing as rows in a Notion database (ask Claude to build it for you).\n2. Create a public connection in Notion's developer settings. Set the installation scope to \"Any workspace\", you can't change it later.\n3. On the connection page, click Publish to Marketplace and fill in the name, description, category, logo and a few screenshots.\n4. Submit it. Notion replies by email in 5 to 10 business days.\n\nA few notes:\n\nYour page goes live at notion .com/connections/<your-name>, with a dofollow link to your website.\n\nYour customers can also connect your SaaS to their Notion workspace in a few clicks, so it's great for them as well.",
+    "urls": []
+  },
+  {
+    "id": "2113979571884429494",
+    "text": "Another great visibility hack for your SaaS is to get your docs scored on Fern's Agent Score. You get a public page (DR 77) with a dofollow link to your docs.\n\nHere is how:\n\n1. Have docs on your own domain.\n2. Make them readable for AI agents: an llms.txt that lists every docs page, and a .md version of each page (ask Claude to do it for you).\n3. Check your score locally first: npx afdocs\n4. Go to buildwithfern .com/agent-score, click Score docs and paste your docs URL.\n\nA few notes:\n\nYour page goes live right away at buildwithfern .com/agent-score/company/<your-docs>, with your grade and a dofollow link to your docs.\n\nWant it on the leaderboard too? Click Request listing on your page.",
+    "urls": []
+  },
+  {
+    "id": "2113617183830086115",
+    "text": "Another great visibility hack for your SaaS is to get a public profile on Postman (DR 91). The Website field on it is a dofollow link.\n\nHere is how:\n\n1. Sign up at https://t.co/1ueM7E5Bw6 and go to Settings -> Teams -> Create Team. Use your product name as the team URL, e.g. postman .com/yourproduct\n2. Fill in the public profile: Website, About, GitHub and X.\n3. Create a public workspace and import your OpenAPI file. Postman turns it into a collection with every endpoint.\n4. Pin the collection on your profile.\n\nA few notes:\n\nYou also get public documentation for your API as a collection inside Postman. Developers can browse every endpoint, fork it and send requests with their own API key, without leaving Postman.",
+    "urls": [
+      {
+        "display_url": "postman.com",
+        "expanded_url": "http://postman.com",
+        "indices": [
+          164,
+          187
+        ],
+        "url": "https://t.co/1ueM7E5Bw6"
+      }
+    ]
+  },
+  {
+    "id": "2113261569354162494",
+    "text": "Another great visibility hack for your SaaS is to publish a Chrome extension. It gets its own page on Google's own domain, the Chrome Web Store.\n\nAnd creating your extension with AI is much simpler than you think.\n\nHere is how:\n\n1. Build a small extension that does one thing from your SaaS, right in the browser. I made a small post scheduler that works with an API key (ask Claude to do it for you).\n2. Register as a Chrome Web Store developer. It's a one-time $5 fee.\n3. Upload the zip in the Developer Dashboard, fill in the listing (description, icon, screenshots) and submit it for review.\n\nA few notes:\n\nKeep it simple and related to your website. One clear job is enough.\n\nAI loves to cite Chrome Web Store pages, and they rank very high on Google.",
+    "urls": []
+  },
+  {
+    "id": "2112893275933741142",
+    "text": "Another great visibility hack for your SaaS is to create a CLI. It gets picked up automatically by dozens of npm directories like https://t.co/DuIRNhVURW (DR 75).\n\nAnd creating your CLI with AI is much simpler than you think.\n\nHere is how:\n\n1. Have a public API for your SaaS.\n2. Wrap it in a small CLI: a login command that takes an API key, plus one command per main action (ask Claude to do it for you).\n3. In package.json, fill in name, description, keywords, homepage and repository.\n4. Run npm publish --access public\n\nA few notes:\n\nIt gets picked up automatically by npm. io, Libraries. io, jsDelivr, Google's deps .dev and many more.\n\nSome people actually prefer using the CLI instead of the API and MCP, so it's great for your customers as well.",
+    "urls": [
+      {
+        "display_url": "Libraries.io",
+        "expanded_url": "http://Libraries.io",
+        "indices": [
+          130,
+          153
+        ],
+        "url": "https://t.co/DuIRNhVURW"
+      }
+    ]
+  },
+  {
+    "id": "2112529846156882274",
+    "text": "Another great visibility hack for your SaaS is to get listed on RapidAPI (DR 83), the biggest public API marketplace.\n\nHere is how:\n\n1. Sign up at https://t.co/P2sNU46rLT, open Studio and click Add API Project.\n2. Import your OpenAPI file. RapidAPI builds the endpoint list, the groups and a live playground from it.\n3. Under Hub Listing, set the base URL, logo, category, website link and a short overview with a quick start.\n4. Add the Authorization header as a required parameter, so users can pass their own API key through RapidAPI.\n5. In Monetize, add a free $0 plan. Then confirm you own the API and switch the listing from Private to Public.\n\nA few notes:\n\nYou don't have to sell through RapidAPI. Users just use their API key from your app.\n\nYou get a dofollow link from a DR 83 website. Fill in the website field and the link goes straight to your homepage.",
+    "urls": [
+      {
+        "display_url": "rapidapi.com",
+        "expanded_url": "http://rapidapi.com",
+        "indices": [
+          147,
+          170
+        ],
+        "url": "https://t.co/P2sNU46rLT"
+      }
+    ]
+  },
+  {
+    "id": "2112167451794219483",
+    "text": "Another great visibility hack for your SaaS is to get listed on ClawHub (DR 83), the official skill registry for OpenClaw agents.\n\nHere is how:\n\n1. Write a SKILL.md for your SaaS: what it does, how to get an API key, and the endpoints the agent should call.\n2. Install the CLI: npm i -g clawhub\n3. Run clawhub login and approve it with your GitHub account.\n4. Run clawhub skill publish ./your-skill\n\nThat's it. No review queue. ClawHub runs a security audit on the skill, and your page goes live at clawhub .ai/<you>/skills/<name>. Users install it with one command: openclaw skills install @ you/your-skill\n\nA few notes:\n\nYou get a dofollow link from a DR 83 website. Put your signup URL in the setup steps of the skill and it shows up on the page.\n\nLots of scrapers still use ClawHub skills for their aggregators, so one publish ends up on skill directories you never submitted to.",
+    "urls": []
+  },
+  {
+    "id": "2111809522671202657",
+    "text": "Another great visibility hack for your SaaS is to get listed on Smithery (DR 80), the MCP marketplace with 27,000+ servers.\n\nIt takes a few minutes, here is how:\n\n1. Have a remote MCP server live for your SaaS.\n2. Go to https://t.co/U6TkV64E2C and paste your server URL.\n3. If your server needs an API key, add one connection parameter: apiKey, location header, output as header Authorization. The default location is query, and a key sent in the query string never reaches your auth.\n4. Open the Settings tab and fill in everything: display name, description, homepage, icon and GitHub repo.\n5. Verify ownership. Add the smithery-verification TXT record to your root domain and put the Smithery badge in your repo README.\n\nA few notes:\n\nSmithery gives you a do-follow link for the submission.\n\nUsers can connect to your server through Smithery's gateway without any setup, and they can try your tools right on the page.",
+    "urls": [
+      {
+        "display_url": "smithery.ai/new",
+        "expanded_url": "http://smithery.ai/new",
+        "indices": [
+          220,
+          243
+        ],
+        "url": "https://t.co/U6TkV64E2C"
+      }
+    ]
+  },
+  {
+    "id": "2111445575669346623",
+    "text": "Another great visibility hack for your SaaS is to get listed on Glama (DR 76). \n\nIt's one of the biggest MCP directories.\n\nHere is how to do it:\n\n0. If you already published to the Official MCP Registry, you're halfway there. Glama pulls connectors from the registry on its own. Mine showed up about an hour after we published (Check the tweet below)\n1. Open your connector page (glama. ai/mcp/connectors/<your registry name>) and click Claim ownership.\n2. Prove you own the domain. Serve a small /.well-known/glama.json from your MCP host or add one TXT record.\n3. If your server requires auth, go to Admin -> Test profile and sign in with OAuth or paste an API key. Glama checks health without logging in, so without this your listing shows Unhealthy and drops out of search.\n4. Fix weak tool descriptions. Glama grades every tool, and saying when to use a tool instead of its sibling took ours from B to A.\n\nBonus:\nWant a second page? Click Add Server and submit your public GitHub repo (100k+ stars)\nhttps://t.co/w7sgYiuKe8\n\nGlama also runs an MCP gateway, so people can connect your server and use it straight from their Glama account.",
+    "urls": [
+      {
+        "display_url": "github.com/punkpeye/aweso…",
+        "expanded_url": "https://github.com/punkpeye/awesome-mcp-servers",
+        "indices": [
+          1004,
+          1027
+        ],
+        "url": "https://t.co/w7sgYiuKe8"
+      }
+    ]
+  },
+  {
+    "id": "2111078201090777406",
+    "text": "Yet another great visibility hack for your SaaS is to get into the Official MCP Registry (https://t.co/QwqvHs0WkQ, DR 91)\n\nIt takes about a few minutes. Here is how:\n\n1. Have a remote MCP server live for your SaaS.\n2. Install the publisher CLI: `brew install mcp-publisher`\n3. Run `mcp-publisher init` and edit the server.json it creates: a name, a title, a one-line description, a version and the URL of the server.\n4. Prove you own the domain. Generate a key and add one TXT record to your root domain.\n5. mcp-publisher login dns --domain yourdomain .com --private-key <key>\n6. mcp-publisher publish\n\nYou're live in seconds. No review, no form, no approval queue.\n\nA few benefits:\n\nDirectories, MCP clients and IDE marketplaces pull their lists from THIS registry, so one publish ends up on hundreds of other pages without you submitting anywhere else.",
+    "urls": [
+      {
+        "display_url": "registry.modelcontextprotocol.io",
+        "expanded_url": "http://registry.modelcontextprotocol.io",
+        "indices": [
+          90,
+          113
+        ],
+        "url": "https://t.co/QwqvHs0WkQ"
+      }
+    ]
+  },
+  {
+    "id": "2110716568652976638",
+    "text": "Another great visibility hack for your SaaS is to get listed on Claude (DR 92).\n\nHere is how:\n\n1. Have an MCP or API ready for your SaaS.\n2. You need an active Claude Teams subscription (at least 2 seats) at $40/mo. If you already use Claude, it's a no-brainer since you're already paying.\n3. Go to Settings -> Directory: https://t.co/y1osHlAxOt\n4. Fill out the form and submit (approval took ~15 minutes for me).\n\nNow you have a dedicated page + your customers can use your Connector directly in Claude with a few clicks.\n\nA few notes:\n\nIt's the Claude Community directory. The curated list is approved manually by the Anthropic team, so this page is noindex, meaning Google won't see it.\n\nI would pair this submission with a PR release and a direct link from your SaaS.",
+    "urls": [
+      {
+        "display_url": "claude.ai/directory/mana…",
+        "expanded_url": "https://claude.ai/directory/manage",
+        "indices": [
+          322,
+          345
+        ],
+        "url": "https://t.co/y1osHlAxOt"
+      }
+    ]
+  },
+  {
+    "id": "2110349682559910166",
+    "text": "Another great visibility hack for your SaaS is to get listed on Vercel (DR 92) - a massively authoritative domain.\n\nIt's actually quite simple:\n\n1. Have an MCP or API ready for your SaaS.\n2. Go to the Vercel Connectors page and click Get Started - https://t.co/AkOqMligQg\n3. Click Create Connector, fill out the form, and submit it.\n\nVercel was very quick to approve our submission, with no follow-up questions!",
+    "urls": [
+      {
+        "display_url": "vercel.com/connect/browse",
+        "expanded_url": "https://vercel.com/connect/browse",
+        "indices": [
+          248,
+          271
+        ],
+        "url": "https://t.co/AkOqMligQg"
+      }
+    ]
+  },
+  {
+    "id": "2109628678682431507",
+    "text": "A great visibility hack for your SaaS is to get listed on Zapier - a highly relevant, high-authority domain.\n\nHere's how to do it:\n\n0. Make sure you have a working MCP server for your SaaS.\n1. Create an account on Zapier (the free trial should be enough).\n2. Create an integration using your MCP server and fill out the form.\n3. Test your integration. Each tool call needs to be verified.\n4. Submit your integration for review. The Zapier team is very responsive and supportive, so you can expect to hear back quickly.\n\nIn just a few days, you could have a dedicated integration page on Zapier!",
+    "urls": []
+  }
+]

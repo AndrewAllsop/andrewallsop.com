@@ -4,6 +4,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Grain from '../components/Grain.astro';
 import DitherArt from '../components/DitherArt.astro';
+import NoteCards from '../components/NoteCards.astro';
 import GlobalFooter from '../components/GlobalFooter.astro';
 import GoogleTagManagerHead from '../components/GoogleTagManagerHead.astro';
 import PostHogHead from '../components/PostHogHead.astro';
@@ -33,7 +34,7 @@ const workItems = [
     <meta name="description" content="Demand Generation Marketer helping B2B SaaS companies connect marketing to financial outcomes." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LNZJEMMDTN"></script>
@@ -55,10 +56,12 @@ const workItems = [
     <main class="cobalt-rail">
       <div class="cobalt-content">
         <section class="cobalt-intro" aria-label="Introduction">
-          <h1>I’m a B2B Demand Generation Marketer that is less interested in marketing as a collection of campaigns and more interested in how the whole thing works together.</h1>
-          <p>Ads matter, but so does understanding and impacting the economics, the sales process and what happens after someone becomes a lead or a customer. Good marketing decisions usually sit across all of it. That’s how you drive revenue and capture market share.</p>
-          <p>More recently I’ve also been spending a lot of time building with AI. Some of that is looking at how autonomous companies might work, some is building systems inside existing organisations, and some is just putting things out into the world to see what happens. I’m deliberately doing a lot of the latter because I want to get better by building, not by talking about it.</p>
-          <p>You can see some of those projects below.</p>
+          <h1>I’m a B2B Demand Generation Marketer that is less interested in marketing as a collection of campaigns and more interested in how the whole thing works&nbsp;together.</h1>
+          <div class="cobalt-intro-body">
+            <p>Ads matter, but so does understanding and impacting the economics, the sales process and what happens after someone becomes a lead or a customer. Good marketing decisions usually sit across all of it. That’s how you drive revenue and capture market share.</p>
+            <p>More recently I’ve also been spending a lot of time building with AI. Some of that is looking at how autonomous companies might work, some is building systems inside existing organisations, and some is just putting things out into the world to see what happens. I’m deliberately doing a lot of the latter because I want to get better by building, not by talking about it.</p>
+            <p>You can see some of those projects below.</p>
+          </div>
         </section>
 
         <section class="cobalt-section" aria-labelledby="work-heading">
@@ -84,17 +87,7 @@ const workItems = [
             <h2 id="notes-heading">Latest notes</h2>
             <a href="/blog">View all ↗</a>
           </div>
-          <div class="cobalt-rows cobalt-note-rows">
-            {recentPosts.map((post) => (
-              <a href={`/blog/${post.id}`}>
-                <span class="cobalt-row-main">
-                  <strong>{post.data.title}</strong>
-                  <small>{post.data.pubDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</small>
-                </span>
-                <span class="cobalt-row-action">Read note ↗</span>
-              </a>
-            ))}
-          </div>
+          <NoteCards notes={recentPosts.map((post) => ({ href: `/blog/${post.id}`, title: post.data.title, pubDate: post.data.pubDate }))} />
         </section>
 
       </div>

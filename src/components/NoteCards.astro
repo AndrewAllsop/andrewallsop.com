@@ -1,0 +1,218 @@
+---
+interface Note {
+  href: string;
+  title: string;
+  pubDate: Date;
+}
+
+interface Props {
+  notes: readonly Note[];
+}
+
+// Each card's bloom sits somewhere different, so a row of cards doesn't read as one repeated tile.
+const BLOOMS = [
+  { color: 'var(--ember)', x: '58%', y: '-22%' },
+  { color: 'var(--amber)', x: '-18%', y: '-14%' },
+  { color: 'var(--brick)', x: '30%', y: '-30%' },
+  { color: 'var(--teal)', x: '48%', y: '-10%' },
+] as const;
+
+const { notes } = Astro.props;
+
+const bloomFor = (index: number) => {
+  const { color, x, y } = BLOOMS[index % BLOOMS.length];
+  return `--bloom: ${color}; --bloom-x: ${x}; --bloom-y: ${y}`;
+};
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+---
+
+<div class="note-cards">
+  {notes.map((note, index) => (
+    <a class="note-card" href={note.href} style={bloomFor(index)}>
+      <time datetime={note.pubDate.toISOString()}>{formatDate(note.pubDate)}</time>
+      <h3>{note.title}</h3>
+      <span class="note-card-action">Read note <span aria-hidden="true">↗</span></span>
+    </a>
+  ))}
+</div>
+
+<style>
+  @property --note-spin {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 114deg;
+  }
+
+  .note-cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 3rem;
+  }
+
+  .note-card {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    min-height: 20rem;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 1.125rem;
+    background: var(--cream-raised);
+    color: #202020;
+    transition: transform 0.28s ease, opacity 0.28s ease, filter 0.28s ease;
+  }
+
+  /* The glowing edge: a conic sweep masked down to a 2px frame. */
+  .note-card::before {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    padding: 2px;
+    background: conic-gradient(
+      from var(--note-spin),
+      transparent 0 62%,
+      var(--amber) 72%,
+      var(--ember) 84%,
+      var(--brick) 94%,
+      transparent 100%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    pointer-events: none;
+  }
+
+  /* The soft colour bloom that stands in for a cover image. */
+  .note-card::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: var(--bloom-y);
+    left: var(--bloom-x);
+    width: 85%;
+    aspect-ratio: 1;
+    background: radial-gradient(closest-side, var(--bloom), transparent);
+    opacity: 0.32;
+    transition: transform 0.45s ease, opacity 0.45s ease;
+  }
+
+  .note-card time {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #555;
+  }
+
+  .note-card h3 {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: auto 0 0.875rem;
+    font-size: 1.3125rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 7;
+  }
+
+  .note-card-action {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--cobalt-bg);
+  }
+
+  .note-card:focus-visible {
+    outline: 2px solid var(--cream);
+    outline-offset: 3px;
+  }
+
+  .note-card:focus-visible::before {
+    animation: note-spin 3.2s linear infinite;
+  }
+
+  .note-card:focus-visible::after {
+    opacity: 0.6;
+    transform: scale(1.3);
+  }
+
+  .note-cards:has(.note-card:focus-visible) .note-card:not(:focus-visible) {
+    opacity: 0.55;
+    filter: blur(2px);
+    transform: scale(0.98);
+  }
+
+  /* Hover-only so a tap on a phone can't leave its neighbours stuck blurred. */
+  @media (hover: hover) and (pointer: fine) {
+    .note-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .note-card:hover::before {
+      animation: note-spin 3.2s linear infinite;
+    }
+
+    .note-card:hover::after {
+      opacity: 0.6;
+      transform: scale(1.3);
+    }
+
+    .note-cards:has(.note-card:hover) .note-card:not(:hover) {
+      opacity: 0.55;
+      filter: blur(2px);
+      transform: scale(0.98);
+    }
+  }
+
+  @keyframes note-spin {
+    to {
+      --note-spin: 474deg;
+    }
+  }
+
+  @media (max-width: 960px) {
+    .note-cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .note-card {
+      min-height: 16rem;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .note-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .note-card {
+      min-height: 13rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .note-card,
+    .note-card::after {
+      transition: none;
+    }
+
+    .note-card:hover,
+    .note-cards:has(.note-card:hover) .note-card:not(:hover),
+    .note-cards:has(.note-card:focus-visible) .note-card:not(:focus-visible) {
+      filter: none;
+      transform: none;
+    }
+
+    .note-card:hover::before,
+    .note-card:focus-visible::before {
+      animation: none;
+    }
+
+    .note-card:hover::after,
+    .note-card:focus-visible::after {
+      transform: none;
+    }
+  }
+</style>

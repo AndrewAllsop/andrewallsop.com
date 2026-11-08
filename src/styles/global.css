@@ -39,6 +39,8 @@ html {
 
 body {
   font-family: var(--font-sans);
+  font-kerning: normal;
+  font-optical-sizing: auto;
   background: #f5f5f2;
   color: #171717;
   -webkit-font-smoothing: antialiased;
@@ -97,7 +99,6 @@ body.cobalt-page,
   background: var(--cobalt-bg);
   color: var(--cobalt-text);
   font-family: "Inter", system-ui, sans-serif;
-  letter-spacing: -0.03em;
 }
 
 .site-header-cobalt,
@@ -389,22 +390,47 @@ body.cobalt-page,
 }
 
 .cobalt-intro {
-  margin-top: 3.5rem;
-  font-size: 1.0625rem;
-  line-height: 1.6;
+  margin-top: 4.5rem;
 }
 
 .cobalt-intro h1 {
-  margin: 0 0 2.25rem;
-  font-size: clamp(2rem, 5.6vw, 4.25rem);
+  max-width: 17.5em;
+  margin: 0 0 3rem;
+  font-size: clamp(2rem, 1.1rem + 3.9vw, 3.5rem);
   font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: -0.045em;
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
 }
 
-.cobalt-intro p {
-  max-width: 40rem;
-  margin: 0 0 1.25rem;
+/* Two columns of about 60 characters. Slightly heavier than regular because
+   light text on saturated blue reads thinner than its weight. */
+.cobalt-intro-body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 3rem;
+  font-size: 1.125rem;
+  font-weight: 425;
+  line-height: 1.55;
+}
+
+.cobalt-intro-body p {
+  margin: 0 0 1em;
+  text-wrap: pretty;
+}
+
+.cobalt-intro-body p:last-child {
+  grid-column: 2;
+}
+
+@media (max-width: 859px) {
+  .cobalt-intro-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cobalt-intro-body p:last-child {
+    grid-column: auto;
+  }
 }
 
 .cobalt-intro a {
@@ -496,14 +522,6 @@ body.cobalt-page,
   flex-shrink: 0;
   font-size: 0.875rem;
   opacity: 0.85;
-}
-
-.cobalt-note-rows .cobalt-row-main strong {
-  overflow: hidden;
-  white-space: normal;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
 }
 
 .cobalt-newsletter {
@@ -809,14 +827,6 @@ body.cobalt-page,
     margin-top: 0.3rem;
   }
 
-  .cobalt-note-rows .cobalt-row-main strong {
-    display: -webkit-box;
-    overflow: hidden;
-    white-space: normal;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-  }
-
   .cobalt-newsletter {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -919,7 +929,6 @@ html[data-site-theme="mono"] .dark body.cobalt-inner-page {
   background: var(--cobalt-bg, #0038ff);
   color: var(--cobalt-text, #fff);
   font-family: "Inter", system-ui, sans-serif;
-  letter-spacing: -0.03em;
   container-type: inline-size;
 }
 
@@ -1045,10 +1054,10 @@ html[data-site-theme="mono"] .dark body.cobalt-inner-page {
 
 /* Sized against the footer's own width so the name fills any rail. */
 .global-footer-spacer::before {
-  font-size: calc((100cqw - 2rem) / 6.4);
+  font-size: calc((100cqw - 2rem) / 5.9);
   font-weight: 400;
   line-height: 0.95;
-  letter-spacing: -0.06em;
+  letter-spacing: -0.035em;
   white-space: nowrap;
   content: "Andrew Allsop";
 }
@@ -1144,7 +1153,7 @@ html[data-site-theme="mono"] .dark body.cobalt-inner-page {
   font-size: clamp(3rem, 12vw, 7.5rem);
   font-weight: 400;
   line-height: 1;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.03em;
 }
 
 .inner-masthead > p {
@@ -1377,7 +1386,7 @@ html[data-site-theme="mono"] .dark body.cobalt-inner-page {
   font-size: 1.125rem;
   font-weight: 500;
   line-height: 1.3;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.012em;
 }
 
 .notes-row-description {

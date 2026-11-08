@@ -9,6 +9,8 @@
 /* Warm palette shared by every page. Accents are fills only: they are too
    low-contrast on cream for small text. */
 :root {
+  --site-width: 1100px;
+  --site-half: calc(var(--site-width) / 2);
   --cream: #f9f4eb;
   --cream-raised: #fbf9f4;
   --cream-sunken: #eee8dd;
@@ -113,7 +115,8 @@ body.cobalt-page,
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 640px;
+  width: 100%;
+  max-width: var(--site-width);
   min-height: 108px;
   margin: 0 auto;
   padding: 1.5rem 1rem;
@@ -122,7 +125,8 @@ body.cobalt-page,
 }
 
 .cobalt-header-ticker {
-  max-width: 640px;
+  width: 100%;
+  max-width: var(--site-width);
   margin: 0 auto;
   border-right: 1px solid var(--cobalt-border);
   border-left: 1px solid var(--cobalt-border);
@@ -131,7 +135,8 @@ body.cobalt-page,
 /* Ruled section links; the hamburger takes over on narrow screens. */
 .cobalt-header-nav {
   display: flex;
-  max-width: 640px;
+  width: 100%;
+  max-width: var(--site-width);
   margin: 0 auto;
   border: 1px solid var(--cobalt-border);
   border-bottom: 0;
@@ -311,7 +316,8 @@ body.cobalt-page,
 
 .cobalt-rail {
   display: flow-root;
-  max-width: 640px;
+  width: 100%;
+  max-width: var(--site-width);
   min-height: calc(100vh - 143px);
   margin: 0 auto;
   border-right: 1px solid var(--cobalt-border);
@@ -354,7 +360,7 @@ body.cobalt-page,
   display: flex;
   width: max-content;
   white-space: nowrap;
-  animation: cobalt-marquee 22s linear infinite;
+  animation: cobalt-marquee 66s linear infinite;
 }
 
 .cobalt-marquee-track > div {
@@ -390,13 +396,14 @@ body.cobalt-page,
 
 .cobalt-intro h1 {
   margin: 0 0 2.25rem;
-  font-size: clamp(2rem, 7vw, 2.75rem);
+  font-size: clamp(2rem, 5.6vw, 4.25rem);
   font-weight: 400;
   line-height: 1.08;
   letter-spacing: -0.045em;
 }
 
 .cobalt-intro p {
+  max-width: 40rem;
   margin: 0 0 1.25rem;
 }
 
@@ -604,7 +611,7 @@ body.cobalt-page,
   opacity: 1;
 }
 
-/* Dithered clouds fill the gutters either side of the 640px rail. They sit
+/* Dithered clouds fill the gutters either side of the content rail. They sit
    behind all content, take their colour from the theme via 1-bit masks and
    drift slowly on the same wind. Sizes come from
    scripts/generate-dither-art.mjs. */
@@ -625,11 +632,11 @@ body.cobalt-page,
 
 .dither-gutter-left {
   left: 0;
-  right: calc(50% + 320px);
+  right: calc(50% + var(--site-half));
 }
 
 .dither-gutter-right {
-  left: calc(50% + 320px);
+  left: calc(50% + var(--site-half));
   right: 0;
 }
 
@@ -671,7 +678,7 @@ body.cobalt-page,
   position: fixed;
   z-index: 1;
   bottom: 0.75rem;
-  max-width: calc(50% - 320px - 2rem);
+  max-width: calc(50% - var(--site-half) - 2rem);
   margin: 0;
   padding: 0.15rem 0.4rem;
   background: var(--cobalt-bg, #0038ff);
@@ -719,7 +726,7 @@ body.cobalt-page,
   }
 }
 
-@media (max-width: 1099px) {
+@media (max-width: 1399px) {
   .dither-credit {
     display: none;
   }
@@ -733,24 +740,24 @@ body.cobalt-page,
   height: 100%;
   pointer-events: none;
   opacity: 0.2;
-  /* Grain sits either side of the 640px rail only, keeping body content clean.
-     Below 640px the rail fills the viewport, so no grain shows at all. */
+  /* Grain sits either side of the content rail only, keeping body content clean.
+     On narrow screens the rail fills the viewport, so no grain shows at all. */
   -webkit-mask-image: linear-gradient(
     to right,
     #000 0,
-    #000 calc(50% - 320px),
-    transparent calc(50% - 320px),
-    transparent calc(50% + 320px),
-    #000 calc(50% + 320px),
+    #000 calc(50% - var(--site-half)),
+    transparent calc(50% - var(--site-half)),
+    transparent calc(50% + var(--site-half)),
+    #000 calc(50% + var(--site-half)),
     #000 100%
   );
   mask-image: linear-gradient(
     to right,
     #000 0,
-    #000 calc(50% - 320px),
-    transparent calc(50% - 320px),
-    transparent calc(50% + 320px),
-    #000 calc(50% + 320px),
+    #000 calc(50% - var(--site-half)),
+    transparent calc(50% - var(--site-half)),
+    transparent calc(50% + var(--site-half)),
+    #000 calc(50% + var(--site-half)),
     #000 100%
   );
 }
@@ -887,7 +894,8 @@ html[data-site-theme="mono"] .dark body.cobalt-inner-page {
 }
 
 .reading-rail {
-  max-width: 640px;
+  width: 100%;
+  max-width: var(--site-width);
   min-height: calc(100vh - 143px);
   margin: 0 auto;
   border-right: 1px solid var(--cobalt-border);
@@ -903,7 +911,8 @@ html[data-site-theme="mono"] .dark body.cobalt-inner-page {
 }
 
 .global-cobalt-footer {
-  max-width: 640px;
+  width: 100%;
+  max-width: var(--site-width);
   margin: 0 auto;
   border-right: 1px solid var(--cobalt-border, rgb(255 255 255 / 0.2));
   border-left: 1px solid var(--cobalt-border, rgb(255 255 255 / 0.2));
@@ -1132,7 +1141,7 @@ html[data-site-theme="mono"] .dark body.cobalt-inner-page {
   max-width: none;
   margin: 2.5rem 0 1rem;
   color: inherit;
-  font-size: clamp(3rem, 12vw, 5rem);
+  font-size: clamp(3rem, 12vw, 7.5rem);
   font-weight: 400;
   line-height: 1;
   letter-spacing: -0.05em;
@@ -1149,9 +1158,9 @@ html[data-site-theme="mono"] .dark body.cobalt-inner-page {
 .article-masthead { padding-bottom: 3rem; }
 
 .article-masthead h1 {
-  max-width: 13em;
+  max-width: 17em;
   margin-top: 3.5rem;
-  font-size: clamp(2.25rem, 6.2vw, 3.25rem);
+  font-size: clamp(2.25rem, 6.2vw, 4.5rem);
   line-height: 1.05;
 }
 
@@ -1291,8 +1300,13 @@ html[data-site-theme="mono"] .dark body.cobalt-inner-page {
   line-height: 1.7;
 }
 
+/* The names render with no whitespace between them, so each must be its own
+   wrap unit or the row can't break on small screens. */
 .about-skill-row a,
-.about-skill-row span { color: inherit; }
+.about-skill-row span {
+  display: inline-block;
+  color: inherit;
+}
 
 .about-skill-row a:hover {
   color: var(--accent-color);
@@ -1480,7 +1494,7 @@ html[data-site-theme="mono"] .dark body.cobalt-inner-page {
   }
 
   .about-skill-row {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 0.35rem;
   }
 

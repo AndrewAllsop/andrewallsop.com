@@ -394,7 +394,6 @@ body.cobalt-page,
 }
 
 .cobalt-intro h1 {
-  max-width: 17.5em;
   margin: 0 0 3rem;
   font-size: clamp(2rem, 1.1rem + 3.9vw, 3.5rem);
   font-weight: 400;

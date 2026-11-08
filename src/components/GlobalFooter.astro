@@ -37,6 +37,8 @@ import { NEWSLETTER_ENDPOINT } from '../lib/endpoints';
 </footer>
 
 <script>
+  import { track } from '../lib/analytics';
+
   function setupGlobalNewsletter() {
     const form = document.getElementById('global-newsletter-form');
     if (!(form instanceof HTMLFormElement) || form.dataset.bound === 'true') return;
@@ -77,6 +79,7 @@ import { NEWSLETTER_ENDPOINT } from '../lib/endpoints';
 
         if (response.ok) {
           success.classList.remove('hidden');
+          track('newsletter_subscribed', { location: 'footer' });
           form.reset();
         } else {
           error.classList.remove('hidden');

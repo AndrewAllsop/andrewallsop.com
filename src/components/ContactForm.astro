@@ -132,6 +132,8 @@ const topics = [
 </section>
 
 <script>
+  import { track } from '../lib/analytics';
+
   type FieldName = 'name' | 'email' | 'message';
 
   const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -294,6 +296,7 @@ const topics = [
 
       // No endpoint configured: hand off to the visitor's email client.
       if (!endpoint) {
+        track('contact_form_submitted', { method: 'mailto', topic: values.topic });
         window.location.href = buildMailto(email, values);
         setStatus(status, 'success', 'Opening your email app with the message ready to send.');
         return;
@@ -330,6 +333,7 @@ const topics = [
         if (response.ok) {
           form.reset();
           showConfirmation();
+          track('contact_form_submitted', { method: 'worker', topic: values.topic });
         } else {
           setStatus(status, 'error', `Something went wrong. Please email ${email} instead.`);
         }

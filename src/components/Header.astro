@@ -60,6 +60,11 @@ const isCurrent = (href: string) => currentPath.startsWith(href);
           </details>
         </div>
       </nav>
+      <nav class="cobalt-header-nav" aria-label="Site sections">
+        {[...navLinks, { href: '/contact', label: 'Contact' }].map((link) => (
+          <a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>{link.label}</a>
+        ))}
+      </nav>
       <div class="cobalt-header-ticker">
         <StatusTicker />
       </div>

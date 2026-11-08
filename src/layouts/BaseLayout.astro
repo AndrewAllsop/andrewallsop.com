@@ -5,6 +5,7 @@ import GlobalFooter from '../components/GlobalFooter.astro';
 import Grain from '../components/Grain.astro';
 import DitherArt from '../components/DitherArt.astro';
 import GoogleTagManagerHead from '../components/GoogleTagManagerHead.astro';
+import PostHogHead from '../components/PostHogHead.astro';
 import GoogleTagManagerBody from '../components/GoogleTagManagerBody.astro';
 
 interface Props {
@@ -26,6 +27,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 <html lang="en" class="scroll-smooth">
   <head>
     <GoogleTagManagerHead />
+    <PostHogHead />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

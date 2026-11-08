@@ -19,3 +19,15 @@ const DEFAULT_TURNSTILE_SITE_KEY = '0x4AAAAAAFNTDCmLsp3N1yt_';
 /** Override with PUBLIC_TURNSTILE_SITE_KEY, e.g. Cloudflare's test keys locally. */
 export const TURNSTILE_SITE_KEY =
   import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? DEFAULT_TURNSTILE_SITE_KEY;
+
+/**
+ * PostHog project key (phc_...). It is a public, write-only key, safe in
+ * client code. Override with PUBLIC_POSTHOG_KEY; empty disables PostHog.
+ */
+const DEFAULT_POSTHOG_KEY = 'phc_eoDPZAsTxVFig8W0IQ3NmgqbkwFBi3xEUpgJwI87o4e';
+
+export const POSTHOG_KEY = import.meta.env.PUBLIC_POSTHOG_KEY ?? DEFAULT_POSTHOG_KEY;
+
+/** The project lives on PostHog EU cloud. Override with PUBLIC_POSTHOG_HOST. */
+export const POSTHOG_HOST =
+  import.meta.env.PUBLIC_POSTHOG_HOST ?? 'https://eu.i.posthog.com';
